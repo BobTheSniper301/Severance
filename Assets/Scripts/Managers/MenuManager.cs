@@ -8,9 +8,10 @@ public class MenuManager : MonoBehaviour
     [HideInInspector] public GameObject activeMenu;
 
     [SerializeField] GameObject darkBackground;
-
+    [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
 
+    // For button
     public void SettingsMenu()
     {
         if (activeMenu)
@@ -21,6 +22,31 @@ public class MenuManager : MonoBehaviour
         activeMenu = settingsMenu;
     }
 
+    // For button
+    public void PauseMenu()
+    {
+        if (activeMenu)
+        {
+            activeMenu.SetActive(false);
+        }
+        pauseMenu.SetActive(true);
+        activeMenu = pauseMenu;
+    }
+
+    public void PauseMenuCheck()
+    {
+        if (Input.GetKeyDown("escape") || Input.GetKeyDown("tab"))
+        {
+            if (activeMenu == pauseMenu)
+            {
+                pauseMenu.SetActive(false);
+                activeMenu = null;
+                return;
+            }
+            pauseMenu.SetActive(true);
+            activeMenu = pauseMenu;
+        }
+    }
 
 
     private void Awake()
@@ -35,7 +61,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
     void Start()
     {
         GameObject[] allMenus = GameObject.FindGameObjectsWithTag("Menu");
@@ -46,7 +71,6 @@ public class MenuManager : MonoBehaviour
 
         darkBackground.SetActive(false);
     }
-
 
     void Update()
     {
@@ -64,5 +88,7 @@ public class MenuManager : MonoBehaviour
             darkBackground.SetActive(false);
             Time.timeScale = 1;
         }
+
+        PauseMenuCheck();
     }
 }
