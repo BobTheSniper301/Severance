@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance { get; private set; }
@@ -11,28 +11,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
 
-    // For button
-    public void SettingsMenu()
-    {
-        if (activeMenu)
-        {
-            activeMenu.SetActive(false);
-        }
-        settingsMenu.SetActive(true);
-        activeMenu = settingsMenu;
-    }
-
-    // For button
-    public void PauseMenu()
-    {
-        if (activeMenu)
-        {
-            activeMenu.SetActive(false);
-        }
-        pauseMenu.SetActive(true);
-        activeMenu = pauseMenu;
-    }
-
     public void PauseMenuCheck()
     {
         if (Input.GetKeyDown("escape") || Input.GetKeyDown("tab"))
@@ -43,11 +21,49 @@ public class MenuManager : MonoBehaviour
                 activeMenu = null;
                 return;
             }
-            pauseMenu.SetActive(true);
-            activeMenu = pauseMenu;
+            else if (!activeMenu)
+            {
+                pauseMenu.SetActive(true);
+                activeMenu = pauseMenu;
+            }
         }
     }
 
+
+    #region Functions For Buttons
+
+    public void SettingsMenu()
+    {
+        if (activeMenu)
+        {
+            activeMenu.SetActive(false);
+        }
+        settingsMenu.SetActive(true);
+        activeMenu = settingsMenu;
+    }
+
+    public void PauseMenu()
+    {
+        if (activeMenu)
+        {
+            activeMenu.SetActive(false);
+        }
+        pauseMenu.SetActive(true);
+        activeMenu = pauseMenu;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 0;
+    }
+
+    #endregion
 
     private void Awake()
     {
