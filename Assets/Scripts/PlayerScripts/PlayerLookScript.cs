@@ -1,10 +1,11 @@
 using UnityEngine;
+// cursor locked is in MenuManager
 
 public class PlayerLookScript : MonoBehaviour
 {
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     void Update()
