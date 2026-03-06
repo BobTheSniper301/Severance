@@ -11,24 +11,51 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
 
-    public void PauseMenuCheck()
+    #region Function Calls
+    private void Awake()
     {
-        if (Input.GetKeyDown("escape") || Input.GetKeyDown("tab"))
+        if (instance != null && instance != this)
         {
-            if (activeMenu == pauseMenu)
-            {
-                pauseMenu.SetActive(false);
-                activeMenu = null;
-                return;
-            }
-            else if (!activeMenu)
-            {
-                pauseMenu.SetActive(true);
-                activeMenu = pauseMenu;
-            }
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
         }
     }
 
+    void Start()
+    {
+        GameObject[] allMenus = GameObject.FindGameObjectsWithTag("Menu");
+        foreach (GameObject menu in allMenus)
+        {
+            menu.SetActive(false);
+        }
+
+        darkBackground.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (activeMenu)
+        {
+            PlayerScript.instance.playerMovementScript.canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            darkBackground.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            PlayerScript.instance.playerMovementScript.canMove = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            darkBackground.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        PauseMenuCheck();
+    }
+
+    #endregion
 
     #region Functions For Buttons
 
@@ -65,46 +92,21 @@ public class MenuManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    public void PauseMenuCheck()
     {
-        if (instance != null && instance != this)
+        if (Input.GetKeyDown("escape") || Input.GetKeyDown("tab"))
         {
-            Destroy(this);
+            if (activeMenu == pauseMenu)
+            {
+                pauseMenu.SetActive(false);
+                activeMenu = null;
+                return;
+            }
+            else if (!activeMenu)
+            {
+                pauseMenu.SetActive(true);
+                activeMenu = pauseMenu;
+            }
         }
-        else
-        {
-            instance = this;
-        }
-    }
-
-    void Start()
-    {
-        GameObject[] allMenus = GameObject.FindGameObjectsWithTag("Menu");
-        foreach (GameObject menu in allMenus)
-        {
-            menu.SetActive(false);
-        }
-
-        darkBackground.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (activeMenu)
-        {
-            PlayerScript.instance.canMove = false;
-            Cursor.lockState = CursorLockMode.None;
-            darkBackground.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            PlayerScript.instance.canMove = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            darkBackground.SetActive(false);
-            Time.timeScale = 1;
-        }
-
-        PauseMenuCheck();
     }
 }
