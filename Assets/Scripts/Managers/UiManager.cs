@@ -15,12 +15,6 @@ public class UiManager : MonoBehaviour
 
     #endregion
 
-    public void InteractPrompt(bool status)
-    {
-        interactPrompt.SetActive(status);
-        crosshair.SetActive(!status);
-    }
-
     #region Function Calls
 
     void Awake()
@@ -37,4 +31,10 @@ public class UiManager : MonoBehaviour
     }
 
     #endregion
+
+    public void InteractPrompt(bool status)
+    {
+        interactPrompt.SetActive(status);
+        crosshair.SetActive(!status);
+    }
 }

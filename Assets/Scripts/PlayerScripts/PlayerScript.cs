@@ -6,8 +6,7 @@ public class PlayerScript : MonoBehaviour
 
     public Camera playerCamera;
 
-    public bool canMove = true;
-
+    public PlayerMovementScript playerMovementScript;
 
     #region Function Calls
 
