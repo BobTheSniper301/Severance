@@ -4,8 +4,6 @@ public class PlayerMovementScript : MonoBehaviour
 {
     [SerializeField] CharacterController characterController;
 
-    bool canMove;
-
     private float walkSpeed = 6f;
     private float runSpeed = 8f;
     private float jumpPower = 5f;
@@ -19,11 +17,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (PlayerScript.instance != null)
-        {
-            canMove = PlayerScript.instance.canMove;
-        }
-
         #region Handles Movement
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -57,6 +50,13 @@ public class PlayerMovementScript : MonoBehaviour
         #endregion
 
 
+        
+    }
+
+    private void Update()
+    {
+        //PlayerScript.instance.playerCamera.gameObject;
+
         #region Handles Rotation
 
         characterController.Move(moveDirection * Time.deltaTime);
@@ -71,6 +71,5 @@ public class PlayerMovementScript : MonoBehaviour
 
         #endregion
     }
-
 
 }
