@@ -35,7 +35,6 @@ public class PlayerMovementScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(moveDirection);
         #region Handles Movement
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);

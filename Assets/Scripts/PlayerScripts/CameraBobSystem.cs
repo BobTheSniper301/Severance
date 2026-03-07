@@ -26,12 +26,11 @@ public class CameraBobSystem : MonoBehaviour
     void Update()
     {
         StartCameraBob();
-        StopCameraBob();
+        StopCameraBob(); // Used so camera doesn't go too far away
     }
 
     private Vector3 StartCameraBob()
     {
-        Debug.Log("start camera bob");
         Vector3 pos = Vector3.zero;
         pos.y += Mathf.Lerp(pos.y, Mathf.Sin(Time.time * Frequency) * Amount * 1.4f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
         pos.x += Mathf.Lerp(pos.x, Mathf.Cos(Time.time * Frequency / 2f) * Amount * 1.6f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
@@ -40,6 +39,7 @@ public class CameraBobSystem : MonoBehaviour
         return pos;
     }
 
+    // Slowly returns camera to start pos
     private void StopCameraBob()
     {
         if (this.transform.localPosition == StartPos) return;
