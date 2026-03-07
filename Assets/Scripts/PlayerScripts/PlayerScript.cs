@@ -6,6 +6,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject playerCameraJoint;
     public Camera playerCamera;
+    public GameObject playerBody;
 
     public PlayerMovementScript playerMovementScript;
 
