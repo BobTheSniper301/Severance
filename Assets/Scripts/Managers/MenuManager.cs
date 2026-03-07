@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
@@ -5,11 +7,12 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance { get; private set; }
 
 
-    [HideInInspector] public GameObject activeMenu;
+    public GameObject activeMenu;
 
     [SerializeField] GameObject darkBackground;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] List<GameObject> menuOpenOrder;
 
     #region Function Calls
     private void Awake()
@@ -57,20 +60,25 @@ public class MenuManager : MonoBehaviour
 
     #endregion
 
+// Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
     #region Functions For Buttons
 
     public void SettingsMenu()
     {
-        if (activeMenu)
-        {
-            activeMenu.SetActive(false);
-        }
+        menuOpenOrder.Add(activeMenu);
+        activeMenu.SetActive(false);
         settingsMenu.SetActive(true);
         activeMenu = settingsMenu;
     }
 
     public void PauseMenu()
     {
+        if (activeMenu == pauseMenu)
+        {
+            activeMenu.SetActive(false);
+            activeMenu = null;
+            return;
+        }
         if (activeMenu)
         {
             activeMenu.SetActive(false);
@@ -90,6 +98,14 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void Back()
+    {
+        // ^1 is the same as -1 except for some reason it doesn't like -1 so I used ^1
+        GameObject lastMenu = menuOpenOrder[^1];
+        Invoke(lastMenu.name, 0);
+        menuOpenOrder.Remove(lastMenu);
+    }
+
     #endregion
 
     public void PauseMenuCheck()
@@ -107,6 +123,7 @@ public class MenuManager : MonoBehaviour
                 pauseMenu.SetActive(true);
                 activeMenu = pauseMenu;
             }
+            else if (Input.GetKeyDown("escape")) Back();
         }
     }
 }
