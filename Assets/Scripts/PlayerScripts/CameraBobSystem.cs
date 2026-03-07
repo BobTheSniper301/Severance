@@ -31,7 +31,6 @@ public class CameraBobSystem : MonoBehaviour
 
     private Vector3 StartCameraBob()
     {
-        Debug.Log("start camera bob");
         Vector3 pos = Vector3.zero;
         pos.y += Mathf.Lerp(pos.y, Mathf.Sin(Time.time * Frequency) * Amount * 1.4f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
         pos.x += Mathf.Lerp(pos.x, Mathf.Cos(Time.time * Frequency / 2f) * Amount * 1.6f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
