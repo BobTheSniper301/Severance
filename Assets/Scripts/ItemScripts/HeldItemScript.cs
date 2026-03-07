@@ -6,6 +6,6 @@ public class HeldItemScript : InteractableObjectScript
     
     public override void Interact()
     {
-        Debug.Log("pickup");
+        Debug.Log("interact");
     }
 }

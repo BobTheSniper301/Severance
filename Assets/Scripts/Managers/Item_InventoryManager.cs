@@ -124,5 +124,11 @@ public class Item_InventoryManager : MonoBehaviour
         }
     }
 
+    public void Pickup(GameObject itemToPickup)
+    {
+        Debug.Log("pickup");
+        // later me stuff
+    }
+
     #endregion
 }
