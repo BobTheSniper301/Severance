@@ -1,16 +1,20 @@
+using System;
 using UnityEngine;
 
 public class CameraBobSystem : MonoBehaviour
 {
 
-    [Range(0.01f, 0.1f)]
+    [Range(0.0001f, 0.1f)]
     public float Amount = 0.03f;
     
     [Range(1f, 30f)]
-    public float Frequency = 10.0f;
+    public float Frequency = 15.0f;
 
     [Range(10f, 100f)]
     public float Smooth = 10.0f;
+
+    [Range(0.01f, 1f)]
+    public float bobbingPlayerSpeedSoftening = 0.25f;
 
     Vector3 StartPos;
 
@@ -21,10 +25,7 @@ public class CameraBobSystem : MonoBehaviour
 
     void Update()
     {
-        if (PlayerScript.instance.playerMovementScript.isSprinting)
-        {
-            StartCameraBob();
-        }
+        StartCameraBob();
         StopCameraBob();
     }
 
@@ -32,8 +33,8 @@ public class CameraBobSystem : MonoBehaviour
     {
         Debug.Log("start camera bob");
         Vector3 pos = Vector3.zero;
-        pos.y += Mathf.Lerp(pos.y, Mathf.Sin(Time.time * Frequency) * Amount * 1.4f, Smooth * Time.deltaTime);
-        pos.x += Mathf.Lerp(pos.x, Mathf.Cos(Time.time * Frequency / 2f) * Amount * 1.6f, Smooth * Time.deltaTime);
+        pos.y += Mathf.Lerp(pos.y, Mathf.Sin(Time.time * Frequency) * Amount * 1.4f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
+        pos.x += Mathf.Lerp(pos.x, Mathf.Cos(Time.time * Frequency / 2f) * Amount * 1.6f, Smooth * Time.deltaTime * (PlayerScript.instance.playerMovementScript.currentPlayerMoveSpeed * bobbingPlayerSpeedSoftening));
         this.transform.localPosition += pos;
 
         return pos;
