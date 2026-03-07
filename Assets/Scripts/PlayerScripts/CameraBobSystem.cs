@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraBobSystem : MonoBehaviour
 {
 
-    [Range(0.01f, 0.1f)]
+    [Range(0.0001f, 0.1f)]
     public float Amount = 0.03f;
     
     [Range(1f, 30f)]
