@@ -7,11 +7,12 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance { get; private set; }
 
 
-    public GameObject activeMenu;
-
     [SerializeField] GameObject darkBackground;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject floorCompletionMenu;
+
+    public GameObject activeMenu;
     [SerializeField] List<GameObject> menuOpenOrder;
 
     #region Function Calls
@@ -61,7 +62,7 @@ public class MenuManager : MonoBehaviour
     #endregion
 
 // Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
-    #region Functions For Buttons
+    #region Functions Mostly For Buttons
 
     public void SettingsMenu()
     {
@@ -87,16 +88,30 @@ public class MenuManager : MonoBehaviour
         activeMenu = pauseMenu;
     }
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 0;
     }
+
+    public void FloorCompletionMenu()
+    {
+        if (activeMenu) activeMenu.SetActive(false);
+        activeMenu = floorCompletionMenu;
+        floorCompletionMenu.SetActive(true);
+    }
+
+    public void NextFloor()
+    {
+        Debug.Log("next floor button pressed");
+        GameManager.instance.NextFloor();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 
     public void Back()
     {
