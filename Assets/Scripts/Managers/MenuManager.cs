@@ -54,6 +54,7 @@ public class MenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             darkBackground.SetActive(true);
             Time.timeScale = 0;
+            GameManager.instance.isTimerActive = false;
         }
         else
         {
@@ -61,6 +62,7 @@ public class MenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             darkBackground.SetActive(false);
             Time.timeScale = 1;
+            GameManager.instance.isTimerActive = true;
         }
 
         PauseMenuCheck();
@@ -130,7 +132,7 @@ public class MenuManager : MonoBehaviour
         activeMenu = floorCompletionMenu;
         floorCompletionMenu.SetActive(true);
        
-        GameManager.instance.UpdateTimes();
+        GameManager.instance.RoundTimes();
         currentFloorTime.text = "Total: " + GameManager.instance.floorTime.ToString() + "s";
         currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
     }

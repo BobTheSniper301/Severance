@@ -6,5 +6,6 @@ public class ElevatorScript : MonoBehaviour
     {
         Debug.Log("ELEVATOR!");
         MenuManager.instance.FloorCompletionMenu();
+        AudioManager.instance.AudioStart(this.GetComponent<AudioSource>());
     }
 }

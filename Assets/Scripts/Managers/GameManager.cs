@@ -24,15 +24,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        floorTime += Time.deltaTime;
-        Debug.Log(floorTime);
+        if (isTimerActive)
+        {
+            floorTime += Time.deltaTime;
+            totalTime += Time.deltaTime;
+            Debug.Log(floorTime);
+        }
     }
 
 
-    public void UpdateTimes()
+    public void RoundTimes()
     {
-        floorTime = Math.Round(floorTime, 3);
-        totalTime += floorTime;
+        floorTime = Math.Round(floorTime, 2);
+        totalTime = Math.Round(totalTime, 2);
     }
 
 
@@ -40,5 +44,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("game manager, go to next floor");
         floorTime = 0;
+        AudioManager.instance.AudioStop();
     }
 }
