@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
 
     public AudioSource activeAudioSource;
+    [SerializeField] Slider masterVolumeSlider;
 
     private void Awake()
     {
@@ -30,4 +32,8 @@ public class AudioManager : MonoBehaviour
         activeAudioSource.Stop();
     }
 
+    public void ChangeVolume()
+    {
+        AudioListener.volume = masterVolumeSlider.value;
+    }
 }

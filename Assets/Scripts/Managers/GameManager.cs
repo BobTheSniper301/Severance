@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         {
             floorTime += Time.deltaTime;
             totalTime += Time.deltaTime;
-            Debug.Log(floorTime);
+            // Debug.Log(floorTime);
         }
     }
 
