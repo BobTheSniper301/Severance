@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance { get; private set; }
@@ -14,6 +15,12 @@ public class MenuManager : MonoBehaviour
 
     public GameObject activeMenu;
     [SerializeField] List<GameObject> menuOpenOrder;
+
+    // For FloorCompletionMenu
+    [SerializeField] TMP_Text pbTotalTime;
+    [SerializeField] TMP_Text pbFloorTime;
+    [SerializeField] TMP_Text currentTotalTime;
+    [SerializeField] TMP_Text currentFloorTime;
 
     #region Function Calls
     private void Awake()
@@ -94,13 +101,6 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void FloorCompletionMenu()
-    {
-        if (activeMenu) activeMenu.SetActive(false);
-        activeMenu = floorCompletionMenu;
-        floorCompletionMenu.SetActive(true);
-    }
-
     public void NextFloor()
     {
         Debug.Log("next floor button pressed");
@@ -122,6 +122,19 @@ public class MenuManager : MonoBehaviour
     }
 
     #endregion
+
+    public void FloorCompletionMenu()
+    {
+        if (activeMenu) activeMenu.SetActive(false);
+       
+        activeMenu = floorCompletionMenu;
+        floorCompletionMenu.SetActive(true);
+       
+        GameManager.instance.UpdateTimes();
+        currentFloorTime.text = "Total: " + GameManager.instance.floorTime.ToString() + "s";
+        currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
+    }
+
 
     public void PauseMenuCheck()
     {
