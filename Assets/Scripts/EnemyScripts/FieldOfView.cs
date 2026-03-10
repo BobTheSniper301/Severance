@@ -7,6 +7,7 @@ public class FieldOfView : MonoBehaviour
     public AiBehaviourScript AiScript;
 
     public float radius;
+    private float increasedAngle;
     [Range(0f, 360f)]
     public float angle;
 
@@ -17,9 +18,18 @@ public class FieldOfView : MonoBehaviour
 
     private void Start()
     {
+        increasedAngle = angle * 2;
+
         player = GameObject.Find("Player");
 
         StartCoroutine(FovRoutine());
+    }
+
+    private void Update()
+    {
+
+        if (AiScript.chasing) angle = increasedAngle;
+        else angle = increasedAngle / 2;
     }
 
     //Slows down FOV calculations
