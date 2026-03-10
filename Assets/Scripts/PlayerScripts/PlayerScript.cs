@@ -4,7 +4,9 @@ public class PlayerScript : MonoBehaviour
 {
     public static PlayerScript instance { get; private set; }
 
+    public GameObject playerCameraJoint;
     public Camera playerCamera;
+    public GameObject playerBody;
 
     public PlayerMovementScript playerMovementScript;
 
@@ -20,6 +22,11 @@ public class PlayerScript : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    void Start()
+    {
+        GameManager.instance.isTimerActive = true;
     }
 
     #endregion
