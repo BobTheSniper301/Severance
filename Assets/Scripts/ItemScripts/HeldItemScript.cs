@@ -6,6 +6,6 @@ public class HeldItemScript : InteractableObjectScript
     
     public override void Interact()
     {
-        Debug.Log("interact");
+        ItemInventoryManager.instance.Pickup(this.gameObject);
     }
 }
