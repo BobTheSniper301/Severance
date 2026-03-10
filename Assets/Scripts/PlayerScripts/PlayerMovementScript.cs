@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -8,16 +9,29 @@ public class PlayerMovementScript : MonoBehaviour
     public bool isSprinting;
     public bool isCrouching;
 
-    private float crouchSpeed = 2f;
-    private float walkSpeed = 6f;
-    private float sprintSpeed = 8f;
-    private float gravity = 100000000f;
+    public float crouchSpeed = 2f;
+    public float walkSpeed = 4f;
+    public float sprintSpeed = 6f;
+    public float gravity = 100000000f;
 
     [SerializeField] float lookSpeed = 10f;
-    [SerializeField] float lookXLimit = 89f;
+    [SerializeField] float lookXLimit = 82f;
 
     Vector3 moveDirection = Vector3.zero;
+    public float currentPlayerMoveSpeed;
     float rotationX = 0;
+
+    private Vector3 playerBodyStartScale;
+    private float characterControlerStartHeight;
+    private float playerBodyCapsuleStartHeight;
+
+
+    void Start()
+    {
+        playerBodyStartScale = PlayerScript.instance.playerBody.transform.localScale;
+        characterControlerStartHeight = this.GetComponent<CharacterController>().height;
+        playerBodyCapsuleStartHeight = PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height;
+    }
 
     void FixedUpdate()
     {
@@ -30,7 +44,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         float curSpeedX = canMove ? (isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isSprinting ? sprintSpeed : isCrouching ? crouchSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
         #endregion
@@ -39,6 +52,8 @@ public class PlayerMovementScript : MonoBehaviour
         {
             moveDirection.y -= gravity * Time.deltaTime;
         }
+
+        currentPlayerMoveSpeed = Math.Abs(moveDirection.x) + Math.Abs(moveDirection.z);
 
     }
 
@@ -52,7 +67,7 @@ public class PlayerMovementScript : MonoBehaviour
         {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            PlayerScript.instance.playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            PlayerScript.instance.playerCameraJoint.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
 
@@ -63,12 +78,16 @@ public class PlayerMovementScript : MonoBehaviour
         if (Input.GetKeyDown("c") && canMove && !isSprinting && ! isCrouching)
         {
             isCrouching = true;
-            PlayerScript.instance.gameObject.transform.localScale = new Vector3(1, 0.75f, 1);
+            PlayerScript.instance.playerBody.transform.localScale = new Vector3(1, 0.75f, 1);
+            PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height *= .75f;
+            this.GetComponent<CharacterController>().height *= .75f;
         }
         else if (Input.GetKeyDown("c") && canMove && !isSprinting)
         {
             isCrouching = false;
-            PlayerScript.instance.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            PlayerScript.instance.playerBody.transform.localScale = playerBodyStartScale;
+            PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height = playerBodyCapsuleStartHeight;
+            this.GetComponent<CharacterController>().height = characterControlerStartHeight;
         }
 
         #endregion

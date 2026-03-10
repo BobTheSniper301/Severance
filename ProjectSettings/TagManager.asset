@@ -5,15 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - Menu
+  - HeldObject
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Interactable
+  - HeldItem
   - 
   - 
   - 
