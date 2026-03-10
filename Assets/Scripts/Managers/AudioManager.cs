@@ -1,12 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// Soley for major game sounds / 2d sounds
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
 
-    public AudioSource activeAudioSource;
-    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] AudioSource audioSource;
+    public Slider masterVolumeSlider;
+    public Slider musicVolumeSlider;
+    public Slider sfxVolumeSlider;
+
+    SoundType activeSoundType;
+
+    public float musicVolume = 1;
+    public float sfxVolume = 1;
+
+    public enum SoundType
+    {
+        GENERAL,
+        MUSIC,
+        SFX
+    }
 
     private void Awake()
     {
@@ -20,20 +35,37 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void Sound(AudioClip audioClip, bool isPlaying, bool isLooping, SoundType soundType)
+    {
+        audioSource.loop = isLooping;
+        if (isPlaying)
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+            return;
+        }
 
-// Def want to change in future probably
-    public void AudioStart(AudioSource audioSource)
-    {
-        activeAudioSource = audioSource;
-        audioSource.Play();
+        activeSoundType = soundType;
     }
-    public void AudioStop()
-    {
-        activeAudioSource.Stop();
-    }
+
 
     public void ChangeVolume()
     {
         AudioListener.volume = masterVolumeSlider.value;
+        musicVolume = musicVolumeSlider.value;
+        sfxVolume = sfxVolumeSlider.value;
+        MenuManager.instance.UpdateSettingsMenu();
+        if (activeSoundType == SoundType.MUSIC)
+        {
+            audioSource.volume = musicVolume;
+        }
+        else if (activeSoundType == SoundType.SFX)
+        {
+            audioSource.volume = sfxVolume;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] TMP_Text pbFloorTime;
     [SerializeField] TMP_Text currentTotalTime;
     [SerializeField] TMP_Text currentFloorTime;
+
+    // Settings menu
+    [SerializeField] TMP_Text masterVolumeText;
+    [SerializeField] TMP_Text musicVolumeText;
+    [SerializeField] TMP_Text sfxVolumeText;
 
     #region Function Calls
     private void Awake()
@@ -54,7 +60,6 @@ public class MenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             darkBackground.SetActive(true);
             Time.timeScale = 0;
-            GameManager.instance.isTimerActive = false;
         }
         else
         {
@@ -62,7 +67,6 @@ public class MenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             darkBackground.SetActive(false);
             Time.timeScale = 1;
-            GameManager.instance.isTimerActive = true;
         }
 
         PauseMenuCheck();
@@ -132,9 +136,16 @@ public class MenuManager : MonoBehaviour
         activeMenu = floorCompletionMenu;
         floorCompletionMenu.SetActive(true);
        
-        GameManager.instance.RoundTimes();
+        // Debug.Log(GameManager.instance.floorTime);
         currentFloorTime.text = "Total: " + GameManager.instance.floorTime.ToString() + "s";
         currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
+    }
+
+    public void UpdateSettingsMenu()
+    {
+        masterVolumeText.text = Math.Round(AudioManager.instance.masterVolumeSlider.value * 100).ToString();
+        musicVolumeText.text = Math.Round(AudioManager.instance.musicVolumeSlider.value * 100).ToString();
+        sfxVolumeText.text = Math.Round(AudioManager.instance.sfxVolumeSlider.value * 100).ToString();
     }
 
 

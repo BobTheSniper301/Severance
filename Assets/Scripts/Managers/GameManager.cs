@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("game manager, go to next floor");
         floorTime = 0;
-        AudioManager.instance.AudioStop();
+        AudioManager.instance.Sound(null, false, false, 0);
+        isTimerActive = true;
+
     }
 }

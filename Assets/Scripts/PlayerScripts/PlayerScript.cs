@@ -24,6 +24,11 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        GameManager.instance.isTimerActive = true;
+    }
+
     #endregion
 
 }
