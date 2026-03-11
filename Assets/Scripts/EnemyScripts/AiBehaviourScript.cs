@@ -10,7 +10,8 @@ public class AiBehaviourScript : MonoBehaviour
     private NavMeshAgent agent;
     public GameObject player;
 
-    private List<Transform> patrols = new List<Transform>();
+    public GameObject patrol;
+    public List<Transform> patrols = new List<Transform>();
     public int currentPoint;
 
     private float moveTime;
@@ -31,7 +32,7 @@ public class AiBehaviourScript : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        foreach (Transform t in GameObject.Find("Patrol").GetComponentsInChildren<Transform>()) 
+        foreach (Transform t in patrol.GetComponentsInChildren<Transform>()) 
         { 
             if (t.gameObject.name != "Patrol")
             {
@@ -63,7 +64,7 @@ public class AiBehaviourScript : MonoBehaviour
 
     void OnPatrol()
     {
-        if (lookTime > 16)
+        if (lookTime > 8)
         {
             chasing = false;
             agent.updateRotation = true;
@@ -78,13 +79,13 @@ public class AiBehaviourScript : MonoBehaviour
             agent.updateRotation = false;
             if (lookLeft)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0, -45, 0, 1), 20);
+                transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0, -35, 0, 1), 1);
                 lookLeft = false;
                 lookRight = true;
             }
-            if (lookRight && lookTime >= 8)
+            if (lookRight && lookTime >= 4)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0, 45, 0, 1), 20);
+                transform.rotation = Quaternion.Slerp(transform.rotation, transform.rotation * new Quaternion(0, 35, 0, 1), 1);
                 lookRight = false;
             }
         }
