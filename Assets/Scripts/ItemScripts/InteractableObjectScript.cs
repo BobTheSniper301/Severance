@@ -7,4 +7,7 @@ public abstract class InteractableObjectScript : MonoBehaviour
 
     public abstract void Interact();
 
+    //public abstract void Throw();
+    
+
 }
