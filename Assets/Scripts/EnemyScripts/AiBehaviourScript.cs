@@ -5,17 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
-public class AiBehaviourScript : MonoBehaviour
+public abstract class AiBehaviourScript : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
     public GameObject player;
 
     public GameObject patrol;
     public List<Transform> patrols = new List<Transform>();
     public int currentPoint;
 
-    private float moveTime;
-    private float lookTime;
+    protected float moveTime;
+    protected float lookTime;
 
     //States
     public bool sleepState = false;
@@ -23,31 +23,31 @@ public class AiBehaviourScript : MonoBehaviour
     public bool chasing = false;
 
     //actions
-    private bool moving = false;
+    protected bool moving = false;
     public bool playerSeen = false;
-    bool lookLeft = true;
-    bool lookRight = false;
+    protected bool lookLeft = true;
+    protected bool lookRight = false;
 
-    void Start()
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.Find("Player");
 
-        foreach (Transform t in patrol.GetComponentsInChildren<Transform>()) 
-        { 
-            if (t.gameObject.name != "Patrol")
+        if (patrol.GetComponentInChildren<Transform>() != null) {
+            foreach (Transform t in patrol.GetComponentsInChildren<Transform>())
             {
-                patrols.Add(t);
-                Debug.Log("append");
+                if (t.gameObject.name != "Patrol")
+                {
+                    patrols.Add(t);
+                    Debug.Log("append");
+                }
             }
         }
 
         lookTime = 40;
-        currentPoint = 0;
-        agent.SetDestination(patrols[currentPoint].position);
-        moving = true;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         moveTime += Time.deltaTime;
         lookTime += Time.deltaTime;
@@ -57,12 +57,9 @@ public class AiBehaviourScript : MonoBehaviour
             moveTime = 0;
             moving = false;
         }
-
-        if (playerSeen) InChase();
-        else if (!moving) OnPatrol();
     }
 
-    void OnPatrol()
+    protected virtual void OnPatrol()
     {
         if (lookTime > 8)
         {
@@ -91,7 +88,7 @@ public class AiBehaviourScript : MonoBehaviour
         }
     }
 
-    void InChase()
+    protected virtual void InChase()
     {
         agent.updateRotation = true;
         lookTime = 0;
@@ -99,4 +96,6 @@ public class AiBehaviourScript : MonoBehaviour
         agent.SetDestination(player.transform.position);
         moving = true;
     }
+
+    public abstract void HeardSound(Transform t, int alertLevel);
 }
