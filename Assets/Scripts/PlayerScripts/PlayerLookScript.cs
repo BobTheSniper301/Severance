@@ -42,12 +42,16 @@ public class PlayerLookScript : MonoBehaviour
         if (Physics.Raycast(cameraRay, out interactableHit, PlayerLookDistance, interactableMask) && ! MenuManager.instance.activeMenu)
         {
             UiManager.instance.InteractPrompt(true);
-            if (Input.GetKeyDown("f"))
+            if (Input.GetKeyDown("f") && ! ItemInventoryManager.instance.isholdingObject)
             {
                 Debug.Log(interactableHit.transform.name);
                 // interactableHit.transform.root.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
                 interactableHit.transform.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
                 
+            }
+            else if (Input.GetKeyDown("f") && ItemInventoryManager.instance.isholdingObject)
+            {
+                Debug.Log("Hands are full");
             }
         }
         else

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemInventoryManager : MonoBehaviour
@@ -9,7 +8,13 @@ public class ItemInventoryManager : MonoBehaviour
     public GameObject[] itemsInInventory = new GameObject[3];
 
     public GameObject activeItem;
+    public GameObject visibleItem;
+
     public bool isholdingObject;
+
+    public float throwHoldTime;
+    public float _throwHoldTime;
+    
     
 
     #region Function Calls
@@ -39,7 +44,9 @@ public class ItemInventoryManager : MonoBehaviour
     {
         // Won't switch to different item slot if holding an object
         if (!isholdingObject) SelectItemCheck();
+        
         CheckItemDrop();
+        CheckItemThrow();
     }
     #endregion
 
@@ -47,13 +54,8 @@ public class ItemInventoryManager : MonoBehaviour
     {
         if (activeItem)
         {
-            foreach(GameObject heldObject in heldObjects)
-            {
-                if (heldObject.name == activeItem.name)
-                {
-                    heldObject.SetActive(false);
-                }
-            }
+            visibleItem.SetActive(false);
+            visibleItem = null;
             activeItem = null;
         }
     }
@@ -66,15 +68,30 @@ public class ItemInventoryManager : MonoBehaviour
             if (heldObject.name == activeItem.name)
             {
                 heldObject.SetActive(true);
+                visibleItem = heldObject;
             }
         }
     }
 
     void CheckItemDrop()
     {
-        if (Input.GetKeyDown("g"))
+        if (Input.GetKeyDown("g") && activeItem)
         {
             DropItem();
+        }
+    }
+
+    void CheckItemThrow()
+    {
+        if (Input.GetKeyUp(KeyCode.Mouse1) && activeItem)
+        {
+            ThrowItem();
+        }
+        if (Input.GetKey(KeyCode.Mouse1) && activeItem)
+        {
+            Debug.Log("charging throw");
+            
+            _throwHoldTime += Time.deltaTime;
         }
     }
 
@@ -93,8 +110,8 @@ public class ItemInventoryManager : MonoBehaviour
                 {
                     DisableActiveItem();
                     activeItem = null;
-                    EnableActiveItem(itemsInInventory[i]);
                 }
+                EnableActiveItem(itemsInInventory[i]);
             }
         }
     }
@@ -114,6 +131,34 @@ public class ItemInventoryManager : MonoBehaviour
     void DropItem()
     {
         Debug.Log("drop item");
+        activeItem.transform.position = visibleItem.transform.position;
+        activeItem.transform.rotation = visibleItem.transform.rotation;
+        activeItem.SetActive(true);
+        for (int i = 0; i < itemsInInventory.Length; i++)
+        {
+            if (itemsInInventory[i] == activeItem)
+            {
+                itemsInInventory[i] = null;
+            }
+        }
+        DisableActiveItem();
+        isholdingObject = false;
+    }
+
+    void ThrowItem()
+    {
+        Debug.Log("Throw item");
+        GameObject _activeItem = activeItem;
+        DropItem();
+
+
+        throwHoldTime = _throwHoldTime;
+        throwHoldTime = Mathf.Clamp(throwHoldTime, 1, 10);
+        Debug.Log("throwHoldTime: " + throwHoldTime);
+
+        float magnitude = 10;
+
+        _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * magnitude * throwHoldTime, ForceMode.Impulse);
     }
 
     #region ItemInteractFunctions
