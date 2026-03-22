@@ -11,24 +11,27 @@ public class StartScript : MonoBehaviour
     void Start()
     {
         activeMenu = startMenu;
-        StartAudioManager.instance.Sound(Resources.Load<AudioClip>("Sounds/Track_1_piano"), true, true, StartAudioManager.SoundType.MUSIC);
+        StartAudioManager.instance.GameOpen();
     }
 
     #region For Buttons
 
     public void Play()
     {
+        StartAudioManager.instance.ButtonSFX();
         SceneManager.LoadScene("TestScene1");
         Time.timeScale = 1;
     }
 
     public void Quit()
     {
+        StartAudioManager.instance.ButtonSFX();
         Application.Quit();
     }
 
     public void SettingsMenu()
     {
+        StartAudioManager.instance.ButtonSFX();
         settingsMenu.SetActive(true);
         activeMenu.SetActive(false);
         activeMenu = settingsMenu;
@@ -36,6 +39,7 @@ public class StartScript : MonoBehaviour
 
     public void RecordsMenu()
     {
+        StartAudioManager.instance.ButtonSFX();
         recordsMenu.SetActive(true);
         activeMenu.SetActive(false);
         activeMenu = recordsMenu;
@@ -43,6 +47,7 @@ public class StartScript : MonoBehaviour
 
     public void Back()
     {
+        StartAudioManager.instance.ButtonSFX();
         activeMenu.SetActive(false);
         startMenu.SetActive(true);
         activeMenu = startMenu;

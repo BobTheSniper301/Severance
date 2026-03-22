@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class AudioManager : MonoBehaviour
         MUSIC,
         SFX
     }
+
+    [SerializeField] AudioSource buttonAudioSource;
 
     private void Awake()
     {
@@ -58,6 +61,7 @@ public class AudioManager : MonoBehaviour
         AudioListener.volume = masterVolumeSlider.value;
         musicVolume = musicVolumeSlider.value;
         sfxVolume = sfxVolumeSlider.value;
+        buttonAudioSource.volume = (float)Math.Round(sfxVolumeSlider.value);
         MenuManager.instance.UpdateSettingsMenu();
         if (activeSoundType == SoundType.MUSIC)
         {
@@ -67,5 +71,10 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.volume = sfxVolume;
         }
+    }
+
+    public void ButtonSFX()
+    {
+        buttonAudioSource.Play();
     }
 }
