@@ -15,7 +15,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject throwPowerPrompt;
         // ThrowPowerPrompt Values
-    [SerializeField] TMP_Text throwHoldTime;
+    [SerializeField] TMP_Text throwPower;
 
     #endregion
 
@@ -46,6 +46,6 @@ public class UiManager : MonoBehaviour
     public void ThrowPowerPrompt(bool SetActive)
     {
         throwPowerPrompt.SetActive(SetActive);
-        throwHoldTime.text = "Power: " + ItemInventoryManager.instance.throwHoldTime.ToString();
+        throwPower.text = "Power: " + ItemInventoryManager.instance.throwPower.ToString();
     }
 }

@@ -13,8 +13,8 @@ public class ItemInventoryManager : MonoBehaviour
 
     public bool isholdingObject;
 
-    public float throwHoldTime;
-    float _throwHoldTime;
+    public float throwPower;
+    float _throwPower;
     public float baseThrowPower = 3;
     public float throwRateMultiplier = 2;
     
@@ -99,17 +99,6 @@ public class ItemInventoryManager : MonoBehaviour
         }
     }
 
-    void ChargeThrow()
-    {
-        Debug.Log("charging throw");
-        
-        _throwHoldTime += Time.deltaTime * throwRateMultiplier;
-
-        throwHoldTime = (float)Math.Round(_throwHoldTime, 1);
-        throwHoldTime = Mathf.Clamp(throwHoldTime, 0, 10);
-        UiManager.instance.ThrowPowerPrompt(true);
-    }
-
     void SelectItemCheck()
     {
         for (int i = 0; i < itemsInInventory.Length; i++)
@@ -145,9 +134,9 @@ public class ItemInventoryManager : MonoBehaviour
 
     void DropItem()
     {
-        Debug.Log("drop item");
         activeItem.transform.position = visibleItem.transform.position;
         activeItem.transform.rotation = visibleItem.transform.rotation;
+        activeItem.GetComponent<InteractableObjectScript>().isThrownOrDropped = true;
         activeItem.SetActive(true);
         for (int i = 0; i < itemsInInventory.Length; i++)
         {
@@ -160,26 +149,33 @@ public class ItemInventoryManager : MonoBehaviour
         isholdingObject = false;
     }
 
+    void ChargeThrow()
+    {
+        _throwPower += Time.deltaTime * throwRateMultiplier;
+
+        throwPower = (float)Math.Round(_throwPower, 1);
+        throwPower = Mathf.Clamp(throwPower, 0.1f, 10);
+        UiManager.instance.ThrowPowerPrompt(true);
+    }
+
     void ThrowItem()
     {
-        Debug.Log("Throw item");
-        Debug.Log("throwHoldTime: " + throwHoldTime);
-
         GameObject _activeItem = activeItem;
+        activeItem.GetComponent<InteractableObjectScript>().itemThrownPower = throwPower;
+        activeItem.GetComponent<InteractableObjectScript>().isThrownOrDropped = true;
         DropItem();
         
         UiManager.instance.ThrowPowerPrompt(false);
 
-        _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * baseThrowPower * throwHoldTime, ForceMode.Impulse);
+        _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * baseThrowPower * throwPower, ForceMode.Impulse);
 
-        _throwHoldTime = 0;
+        _throwPower = 0;
     }
 
     #region ItemInteractFunctions
 
     public void Equip(GameObject itemToEquip)
     {
-        Debug.Log("equip");
         if (! IsInventoryFull())
         {
             for (int i = 0; i < itemsInInventory.Length; i++)
@@ -202,7 +198,6 @@ public class ItemInventoryManager : MonoBehaviour
 
     public void Pickup(GameObject itemToPickup)
     {
-        Debug.Log("pickup");
         activeItem = itemToPickup;
         itemToPickup.SetActive(false);
         EnableActiveItem(activeItem);
