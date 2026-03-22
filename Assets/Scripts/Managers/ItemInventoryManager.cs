@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ItemInventoryManager : MonoBehaviour
@@ -13,7 +14,9 @@ public class ItemInventoryManager : MonoBehaviour
     public bool isholdingObject;
 
     public float throwHoldTime;
-    public float _throwHoldTime;
+    float _throwHoldTime;
+    public float baseThrowPower = 3;
+    public float throwRateMultiplier = 2;
     
     
 
@@ -42,11 +45,14 @@ public class ItemInventoryManager : MonoBehaviour
 
     void Update()
     {
-        // Won't switch to different item slot if holding an object
-        if (!isholdingObject) SelectItemCheck();
-        
-        CheckItemDrop();
-        CheckItemThrow();
+        if (! MenuManager.instance.activeMenu)
+        {
+            CheckItemDrop();
+            CheckItemThrow();
+
+            // Won't switch to different item slot if holding an object
+            if (!isholdingObject) SelectItemCheck();
+        }
     }
     #endregion
 
@@ -83,16 +89,25 @@ public class ItemInventoryManager : MonoBehaviour
 
     void CheckItemThrow()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse1) && activeItem)
+        if (Input.GetKeyUp(KeyCode.Mouse1) && activeItem )
         {
             ThrowItem();
         }
         if (Input.GetKey(KeyCode.Mouse1) && activeItem)
         {
-            Debug.Log("charging throw");
-            
-            _throwHoldTime += Time.deltaTime;
+            ChargeThrow();
         }
+    }
+
+    void ChargeThrow()
+    {
+        Debug.Log("charging throw");
+        
+        _throwHoldTime += Time.deltaTime * throwRateMultiplier;
+
+        throwHoldTime = (float)Math.Round(_throwHoldTime, 1);
+        throwHoldTime = Mathf.Clamp(throwHoldTime, 0, 10);
+        UiManager.instance.ThrowPowerPrompt(true);
     }
 
     void SelectItemCheck()
@@ -148,17 +163,16 @@ public class ItemInventoryManager : MonoBehaviour
     void ThrowItem()
     {
         Debug.Log("Throw item");
-        GameObject _activeItem = activeItem;
-        DropItem();
-
-
-        throwHoldTime = _throwHoldTime;
-        throwHoldTime = Mathf.Clamp(throwHoldTime, 1, 10);
         Debug.Log("throwHoldTime: " + throwHoldTime);
 
-        float magnitude = 10;
+        GameObject _activeItem = activeItem;
+        DropItem();
+        
+        UiManager.instance.ThrowPowerPrompt(false);
 
-        _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * magnitude * throwHoldTime, ForceMode.Impulse);
+        _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * baseThrowPower * throwHoldTime, ForceMode.Impulse);
+
+        _throwHoldTime = 0;
     }
 
     #region ItemInteractFunctions
