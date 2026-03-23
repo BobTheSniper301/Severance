@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class WeaponScript : InteractableObjectScript
 {
-    //[SerializeField] sound hit effect
-    [SerializeField] int handcount;
+    [SerializeField] AudioClip hitSfx;
     [SerializeField] int damage;
 
     public override void Interact()
