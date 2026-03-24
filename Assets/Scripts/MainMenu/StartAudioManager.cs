@@ -28,6 +28,9 @@ public class StartAudioManager : MonoBehaviour
         SFX
     }
 
+    [SerializeField] AudioSource buttonAudioSource;
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -62,6 +65,7 @@ public class StartAudioManager : MonoBehaviour
         masterVolumeText.text = Math.Round(masterVolumeSlider.value * 100).ToString();
         musicVolumeText.text = Math.Round(musicVolumeSlider.value * 100).ToString();
         sfxVolumeText.text = Math.Round(sfxVolumeSlider.value * 100).ToString();
+        buttonAudioSource.volume = (float)Math.Round(sfxVolumeSlider.value);
     }
 
     public void ChangeVolume()
@@ -78,5 +82,15 @@ public class StartAudioManager : MonoBehaviour
         {
             audioSource.volume = sfxVolume;
         }
+    }
+
+    public void GameOpen()
+    {
+        Sound(Resources.Load<AudioClip>("Sounds/Track_1_piano"), true, true, SoundType.MUSIC);
+    }
+
+    public void ButtonSFX()
+    {
+        buttonAudioSource.Play();
     }
 }
