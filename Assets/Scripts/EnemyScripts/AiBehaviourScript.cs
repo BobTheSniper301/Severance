@@ -97,5 +97,10 @@ public abstract class AiBehaviourScript : MonoBehaviour
         moving = true;
     }
 
+    protected virtual void Die()
+    {
+
+    }
+
     public abstract void HeardSound(Transform t, int alertLevel);
 }

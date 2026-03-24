@@ -22,4 +22,13 @@ public class SupervisorScript : AiBehaviourScript
     {
 
     }
+
+    public void KnowPlayerLocation(Vector3 PlayerPosition)
+    {
+        agent.updateRotation = true;
+        lookTime = 0;
+        chasing = true;
+        agent.SetDestination(PlayerPosition);
+        moving = true;
+    }
 }
