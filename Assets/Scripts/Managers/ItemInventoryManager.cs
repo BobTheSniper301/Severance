@@ -56,6 +56,7 @@ public class ItemInventoryManager : MonoBehaviour
     }
     #endregion
 
+    #region Inventory
     void DisableActiveItem()
     {
         if (activeItem)
@@ -78,27 +79,6 @@ public class ItemInventoryManager : MonoBehaviour
             }
         }
     }
-
-    void CheckItemDrop()
-    {
-        if (Input.GetKeyDown("g") && activeItem)
-        {
-            DropItem();
-        }
-    }
-
-    void CheckItemThrow()
-    {
-        if (Input.GetKeyUp(KeyCode.Mouse1) && activeItem )
-        {
-            ThrowItem();
-        }
-        if (Input.GetKey(KeyCode.Mouse1) && activeItem)
-        {
-            ChargeThrow();
-        }
-    }
-
     void SelectItemCheck()
     {
         for (int i = 0; i < itemsInInventory.Length; i++)
@@ -132,6 +112,9 @@ public class ItemInventoryManager : MonoBehaviour
         return (true);
     }
 
+    #endregion
+
+    #region Item use
     void DropItem()
     {
         activeItem.transform.position = visibleItem.transform.position;
@@ -170,6 +153,33 @@ public class ItemInventoryManager : MonoBehaviour
         _activeItem.GetComponent<Rigidbody>().AddForce(PlayerScript.instance.playerCamera.transform.forward * baseThrowPower * throwPower, ForceMode.Impulse);
 
         _throwPower = 0;
+    }
+
+    #endregion
+
+    void CheckItemDrop()
+    {
+        if (Input.GetKeyDown("g") && activeItem)
+        {
+            DropItem();
+        }
+    }
+
+    void CheckItemThrow()
+    {
+        if (Input.GetKeyUp(KeyCode.Mouse1) && activeItem)
+        {
+            ThrowItem();
+        }
+        if (Input.GetKey(KeyCode.Mouse1) && activeItem)
+        {
+            ChargeThrow();
+        }
+    }
+
+    public void SpawnObject(GameObject objectToSpawn, Vector3 pos)
+    {
+        Instantiate(objectToSpawn, pos, Quaternion.identity);
     }
 
     #region ItemInteractFunctions

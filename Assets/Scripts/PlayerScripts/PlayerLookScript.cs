@@ -8,11 +8,13 @@ public class PlayerLookScript : MonoBehaviour
     [SerializeField] float PlayerLookDistance;
 
     private RaycastHit interactableHit;
+    private RaycastHit assassinationColliderHit;
     // private RaycastHit clickableHit;
 
     [SerializeField] new Camera camera;
 
     private LayerMask interactableMask;
+    private LayerMask assassinationMask;
     // private LayerMask clickableMask;
 
     #region Function Calls
@@ -20,7 +22,7 @@ public class PlayerLookScript : MonoBehaviour
     private void Awake()
     {
         interactableMask = LayerMask.GetMask("Interactable");
-        // clickableMask = LayerMask.GetMask("Clickable");
+        interactableMask = LayerMask.GetMask("Assassination");
     }
 
     void Update()
@@ -60,15 +62,11 @@ public class PlayerLookScript : MonoBehaviour
         }
     }
 
-    // To click visible buttons
-    // void ClickCheck()
-    // {
-    //     if (Physics.Raycast(cameraRay, out clickableHit,PlayerLookDistance, clickableMask) && ! MenuManager.instance.activeMenu)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.Mouse0))
-    //         {
-    //             clickableHit.transform.GetComponent<Button>().onClick.Invoke();
-    //         }
-    //     }
-    // }
+    void AssassinationCheck()
+    {
+        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && ItemInventoryManager.instance.activeItem.GetComponent<WeaponScript>())
+        {
+            assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().Die();
+        }
+    }
 }
