@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Menu
   - HeldObject
+  - Supervisor
   layers:
   - Default
   - TransparentFX

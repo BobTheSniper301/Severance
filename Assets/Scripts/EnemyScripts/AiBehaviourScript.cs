@@ -39,7 +39,7 @@ public abstract class AiBehaviourScript : MonoBehaviour
                 if (t.gameObject.name != "Patrol")
                 {
                     patrols.Add(t);
-                    Debug.Log("append");
+                    //Debug.Log("append");
                 }
             }
         }
