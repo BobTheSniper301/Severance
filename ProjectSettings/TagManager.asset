@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Menu
   - HeldObject
+  - Supervisor
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - HeldItem
   - IgnoreObjects
   - SoundDetection
-  - 
-  - 
+  - CubicleWall
+  - Enemy
   - 
   - 
   - 
