@@ -179,7 +179,8 @@ public class ItemInventoryManager : MonoBehaviour
 
     public void SpawnObject(GameObject objectToSpawn, Vector3 pos)
     {
-        Instantiate(objectToSpawn, pos, Quaternion.identity);
+        GameObject newObject = Instantiate(objectToSpawn, pos, Quaternion.identity);
+        newObject.name = objectToSpawn.name; // Mostly just for inventory item check when selecting
     }
 
     #region ItemInteractFunctions

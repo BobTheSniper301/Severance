@@ -17,7 +17,7 @@ TagManager:
   - Interactable
   - HeldItem
   - IgnoreObjects
-  - SoundDetection
+  - 
   - CubicleWall
   - Enemy
   - Assassination

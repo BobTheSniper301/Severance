@@ -7,7 +7,6 @@ public class WeaponScript : InteractableObjectScript
 
     public override void Interact()
     {
-        Debug.Log("interact");
         ItemInventoryManager.instance.Equip(this.gameObject);
     }
 }

@@ -22,7 +22,7 @@ public class PlayerLookScript : MonoBehaviour
     private void Awake()
     {
         interactableMask = LayerMask.GetMask("Interactable");
-        interactableMask = LayerMask.GetMask("Assassination");
+        assassinationMask = LayerMask.GetMask("Assassination");
     }
 
     void Update()
@@ -32,7 +32,7 @@ public class PlayerLookScript : MonoBehaviour
         
         InteractCheck();
 
-        // ClickCheck();
+        AssassinationCheck();
 
         Debug.DrawRay(cameraRay.origin, cameraRay.direction * PlayerLookDistance, Color.red, 0.5f);
     }
@@ -46,8 +46,6 @@ public class PlayerLookScript : MonoBehaviour
             UiManager.instance.InteractPrompt(true);
             if (Input.GetKeyDown("f") && ! ItemInventoryManager.instance.isholdingObject)
             {
-                Debug.Log(interactableHit.transform.name);
-                // interactableHit.transform.root.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
                 interactableHit.transform.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
                 
             }
@@ -64,9 +62,20 @@ public class PlayerLookScript : MonoBehaviour
 
     void AssassinationCheck()
     {
-        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && ItemInventoryManager.instance.activeItem.GetComponent<WeaponScript>())
+        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().isVulnerable)
         {
-            assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().Die();
+            UiManager.instance.InteractPrompt(true);
+            if (Input.GetKeyDown("f"))
+            {
+                if (! ItemInventoryManager.instance.activeItem || ! ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
+                {
+                    Debug.Log("sorry you must be holding a weapon");
+                }
+                else if (ItemInventoryManager.instance.activeItem && ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
+                {
+                    assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().Die();
+                }
+            }
         }
     }
 }

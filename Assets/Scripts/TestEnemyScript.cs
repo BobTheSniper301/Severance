@@ -3,10 +3,11 @@ using UnityEngine;
 public class TestEnemyScript : MonoBehaviour
 {
     public GameObject keycard;
+    public bool isVulnerable = true;
 
     public void Die()
     {
-        Destroy(this.gameObject);
         ItemInventoryManager.instance.SpawnObject(keycard, this.transform.position);
+        Destroy(this.gameObject);
     }
 }
