@@ -8,14 +8,16 @@ public class WorkerScript : AiBehaviourScript
     GameObject closeSupervisor;
 
     Vector3 desk;
-    Vector3 playerPosition;
-    bool ratting = false;
+    public bool ratting = false;
+    bool working = false;
 
     protected override void Start()
     {
         desk = transform.position;
 
         base.Start();
+
+        working = true;
 
         foreach (GameObject AI in GameObject.FindGameObjectsWithTag("Supervisor"))
         {
@@ -27,24 +29,28 @@ public class WorkerScript : AiBehaviourScript
     {
         base.Update();
 
-        if (playerSeen) Rat();
-        else if (ratting)
+        //if (!working)
+        if (ratting)
         {
-            if (Vector3.Distance(transform.position, closeSupervisor.transform.position) < 1)
+            agent.SetDestination(FindSupervisor().transform.position);
+            if (Vector3.Distance(transform.position, closeSupervisor.transform.position) < 2)
             {
-                closeSupervisor.GetComponent<SupervisorScript>().KnowPlayerLocation(playerPosition);
+                closeSupervisor.GetComponent<SupervisorScript>().KnowPlayerLocation();
                 ratting = false;
+                Work();
             }
         }
-        else if (!moving) Work();
+        else if (playerSeen) Rat();
+        else if (!moving && !ratting && !working) Work();
     }
 
     public void Rat()
     {
+        ratting = true;
+        working = false;
         agent.updateRotation = true;
         lookTime = 0;
         chasing = true;
-        playerPosition = player.transform.position;
         agent.SetDestination(FindSupervisor().transform.position);
         moving = true;
     }
@@ -68,11 +74,12 @@ public class WorkerScript : AiBehaviourScript
 
     public void Work()
     {
-        
+        working = true;
+        agent.SetDestination(desk);
     }
 
     public override void HeardSound(Transform t, int alertLevel)
     {
-
+        working = false;
     }
 }

@@ -1,0 +1,1 @@
+using UnityEngine;public class WorkerSpawnScript:MonoBehaviour{public GameObject Worker;void Start(){Instantiate(Worker);}}
