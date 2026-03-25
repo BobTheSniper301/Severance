@@ -9,7 +9,7 @@ public class SaveDataManager : MonoBehaviour
     public float[] floorBests = new float[5];
     public float[] bestRunTotals = new float[5]; // So players can see how they compare to both the best they have done on that floor, and the best full run they have done
     public float currentTotal;
-    public int currentFloor;
+    public int currentFloor = 1;
 
     public float finalTotal;
     public float currentFloorTime;
