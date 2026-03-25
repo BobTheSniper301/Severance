@@ -74,11 +74,12 @@ public class MenuManager : MonoBehaviour
 
     #endregion
 
-// Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
+    // Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
     #region Functions Mostly For Buttons
 
     public void SettingsMenu()
     {
+        AudioManager.instance.ButtonSFX();
         menuOpenOrder.Add(activeMenu);
         activeMenu.SetActive(false);
         settingsMenu.SetActive(true);
@@ -87,6 +88,7 @@ public class MenuManager : MonoBehaviour
 
     public void PauseMenu()
     {
+        AudioManager.instance.ButtonSFX();
         if (activeMenu == pauseMenu)
         {
             activeMenu.SetActive(false);
@@ -103,24 +105,29 @@ public class MenuManager : MonoBehaviour
 
     public void MainMenu()
     {
+        AudioManager.instance.ButtonSFX();
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 0;
     }
 
     public void NextFloor()
     {
+        AudioManager.instance.ButtonSFX();
         Debug.Log("next floor button pressed");
         GameManager.instance.NextFloor();
     }
 
     public void Quit()
     {
+        SaveDataManager.instance.SaveAll();
+        AudioManager.instance.ButtonSFX();
         Application.Quit();
     }
 
 
     public void Back()
     {
+        AudioManager.instance.ButtonSFX();
         // ^1 is the same as -1 except for some reason it doesn't like -1 so I used ^1
         GameObject lastMenu = menuOpenOrder[^1];
         Invoke(lastMenu.name, 0);
@@ -139,6 +146,12 @@ public class MenuManager : MonoBehaviour
         // Debug.Log(GameManager.instance.floorTime);
         currentFloorTime.text = "Total: " + GameManager.instance.floorTime.ToString() + "s";
         currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
+        pbFloorTime.text = "Total: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
+        pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
+        
+        SaveDataManager.instance.UpdateTimes();
+        SaveDataManager.instance.currentFloor += 1;
+        SaveDataManager.instance.SaveAll();
     }
 
     public void UpdateSettingsMenu()
@@ -146,6 +159,7 @@ public class MenuManager : MonoBehaviour
         masterVolumeText.text = Math.Round(AudioManager.instance.masterVolumeSlider.value * 100).ToString();
         musicVolumeText.text = Math.Round(AudioManager.instance.musicVolumeSlider.value * 100).ToString();
         sfxVolumeText.text = Math.Round(AudioManager.instance.sfxVolumeSlider.value * 100).ToString();
+        
     }
 
 

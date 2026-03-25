@@ -16,11 +16,11 @@ TagManager:
   - UI
   - Interactable
   - HeldItem
+  - IgnoreObjects
+  - 
   - CubicleWall
-  - 
-  - 
   - Enemy
-  - 
+  - Assassination
   - 
   - 
   - 

@@ -8,11 +8,13 @@ public class PlayerLookScript : MonoBehaviour
     [SerializeField] float PlayerLookDistance;
 
     private RaycastHit interactableHit;
+    private RaycastHit assassinationColliderHit;
     // private RaycastHit clickableHit;
 
     [SerializeField] new Camera camera;
 
     private LayerMask interactableMask;
+    private LayerMask assassinationMask;
     // private LayerMask clickableMask;
 
     #region Function Calls
@@ -20,7 +22,7 @@ public class PlayerLookScript : MonoBehaviour
     private void Awake()
     {
         interactableMask = LayerMask.GetMask("Interactable");
-        // clickableMask = LayerMask.GetMask("Clickable");
+        assassinationMask = LayerMask.GetMask("Assassination");
     }
 
     void Update()
@@ -30,7 +32,7 @@ public class PlayerLookScript : MonoBehaviour
         
         InteractCheck();
 
-        // ClickCheck();
+        AssassinationCheck();
 
         Debug.DrawRay(cameraRay.origin, cameraRay.direction * PlayerLookDistance, Color.red, 0.5f);
     }
@@ -39,13 +41,24 @@ public class PlayerLookScript : MonoBehaviour
 
     void InteractCheck()
     {
-        if (Physics.Raycast(cameraRay, out interactableHit,PlayerLookDistance, interactableMask) && ! MenuManager.instance.activeMenu)
+        // TODO: Could clean up this logic but too lazy to do all that
+        if (Physics.Raycast(cameraRay, out interactableHit, PlayerLookDistance, interactableMask) && ! MenuManager.instance.activeMenu)
         {
             UiManager.instance.InteractPrompt(true);
             if (Input.GetKeyDown("f"))
             {
-                // interactableHit.transform.root.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
-                interactableHit.transform.parent.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
+                if (interactableHit.transform.GetComponent<InteractableObjectScript>())
+                {
+                    if (! ItemInventoryManager.instance.isholdingObject)
+                    {
+                        interactableHit.transform.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
+                    }
+                    else Debug.Log("Hands are full");
+                }
+                else
+                {
+                    interactableHit.transform.parent.GetComponent<MonoBehaviour>().Invoke("Interact", 0);
+                }
             }
         }
         else
@@ -54,15 +67,23 @@ public class PlayerLookScript : MonoBehaviour
         }
     }
 
-    // To click visible buttons
-    // void ClickCheck()
-    // {
-    //     if (Physics.Raycast(cameraRay, out clickableHit,PlayerLookDistance, clickableMask) && ! MenuManager.instance.activeMenu)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.Mouse0))
-    //         {
-    //             clickableHit.transform.GetComponent<Button>().onClick.Invoke();
-    //         }
-    //     }
-    // }
+    void AssassinationCheck()
+    {
+        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().isVulnerable)
+        {
+            UiManager.instance.InteractPrompt(true);
+            if (Input.GetKeyDown("f"))
+            {
+                if (! ItemInventoryManager.instance.activeItem || ! ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
+                {
+                    Debug.Log("sorry you must be holding a weapon");
+                }
+                else if (ItemInventoryManager.instance.activeItem && ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
+                {
+                    // TODO: This needs to trigger an animation, and then set the animation to call a kill function or whatever when it ends
+                    assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().Die();
+                }
+            }
+        }
+    }
 }

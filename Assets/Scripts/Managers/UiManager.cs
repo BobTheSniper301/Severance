@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class UiManager : MonoBehaviour
@@ -12,6 +11,9 @@ public class UiManager : MonoBehaviour
     // Extra Menus
     [SerializeField] GameObject interactPrompt;
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject throwPowerPrompt;
+        // ThrowPowerPrompt Values
+    [SerializeField] TMP_Text throwPower;
 
     #endregion
 
@@ -36,5 +38,12 @@ public class UiManager : MonoBehaviour
     {
         interactPrompt.SetActive(status);
         crosshair.SetActive(!status);
+    }
+
+    // Used to enable and update the throw power prompt
+    public void ThrowPowerPrompt(bool SetActive)
+    {
+        throwPowerPrompt.SetActive(SetActive);
+        throwPower.text = "Power: " + ItemInventoryManager.instance.throwPower.ToString();
     }
 }
