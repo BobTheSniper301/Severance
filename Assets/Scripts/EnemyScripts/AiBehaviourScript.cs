@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public abstract class AiBehaviourScript : MonoBehaviour
 {
