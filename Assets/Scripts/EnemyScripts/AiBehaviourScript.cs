@@ -15,10 +15,12 @@ public abstract class AiBehaviourScript : MonoBehaviour
     public int currentPoint;
 
     protected float moveTime;
+    protected float vulnerableTimer;
     protected float lookTime;
 
     //States
     public bool sleepState = false;
+    public bool isVulnerable = true;
     //public bool patroling = true;
     public bool chasing = false;
 
@@ -51,11 +53,21 @@ public abstract class AiBehaviourScript : MonoBehaviour
     {
         moveTime += Time.deltaTime;
         lookTime += Time.deltaTime;
+        vulnerableTimer += Time.deltaTime;
 
         if (agent.velocity.magnitude < 0.10f && moveTime > 3)
         {
             moveTime = 0;
             moving = false;
+        }
+        if (playerSeen)
+        {
+            isVulnerable = false;
+            vulnerableTimer = 0;
+        }
+        if (vulnerableTimer > 2)
+        {
+            isVulnerable = true;
         }
     }
 
@@ -95,6 +107,11 @@ public abstract class AiBehaviourScript : MonoBehaviour
         chasing = true;
         agent.SetDestination(player.transform.position);
         moving = true;
+    }
+
+    protected virtual void Die()
+    {
+
     }
 
     public abstract void HeardSound(Transform t, int alertLevel);
