@@ -45,6 +45,7 @@ public class StartScript : MonoBehaviour
         recordsMenu.SetActive(true);
         activeMenu.SetActive(false);
         activeMenu = recordsMenu;
+        recordsMenu.GetComponent<RecordsMenuScript>().UpdateTimes();
     }
 
     public void Back()

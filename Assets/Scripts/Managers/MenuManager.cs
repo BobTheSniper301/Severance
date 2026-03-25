@@ -74,7 +74,7 @@ public class MenuManager : MonoBehaviour
 
     #endregion
 
-// Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
+    // Back() will use some of these functions as well to open menus, and Back() can be called when pressing escape
     #region Functions Mostly For Buttons
 
     public void SettingsMenu()
@@ -138,8 +138,6 @@ public class MenuManager : MonoBehaviour
 
     public void FloorCompletionMenu()
     {
-        
-
         if (activeMenu) activeMenu.SetActive(false);
        
         activeMenu = floorCompletionMenu;
@@ -150,9 +148,9 @@ public class MenuManager : MonoBehaviour
         currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
         pbFloorTime.text = "Total: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
         pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
-
-        SaveDataManager.instance.currentFloor += 1;
+        
         SaveDataManager.instance.UpdateTimes();
+        SaveDataManager.instance.currentFloor += 1;
         SaveDataManager.instance.SaveAll();
     }
 

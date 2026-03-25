@@ -38,9 +38,10 @@ public class SaveDataManager : MonoBehaviour
 
     public void UpdateTimes()
     {
-        if (floorBests[currentFloor] == 0 || currentFloorTime < floorBests[currentFloor])
+        if (floorBests[currentFloor-1] == 0 || currentFloorTime < floorBests[currentFloor-1])
         {
-            floorBests[currentFloor] = currentFloorTime;
+            floorBests[currentFloor-1] = currentFloorTime;
+            Debug.Log("override current floor time: " + currentFloorTime);
         }
         if (bestRunTotals[4] == 0 || finalTotal < bestRunTotals[4])
         {
@@ -48,13 +49,22 @@ public class SaveDataManager : MonoBehaviour
             {
                 bestRunTotals[i] = currentRunTotals[i];
             }
+            Debug.Log("override total runs time");
         }
+    }
+
+    public void DeleteAll()
+    {
+        PlayerPrefs.DeleteAll();
+        LoadAll();
+        SaveAll();
     }
 
     #region Save
 
     public void SaveAll()
     {
+        Debug.Log("save all");
         SaveFloorBests();
         SaveBestRunTotals();
         SaveCurrentFloor();
@@ -85,6 +95,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveCurrentFloor()
     {
+        currentFloor = Mathf.Clamp(currentFloor, 1, floors.Length);
         PlayerPrefs.SetInt("currentFloor", currentFloor);
     }
 
@@ -94,6 +105,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void LoadAll()
     {
+        Debug.Log("load all");
         LoadFloorBests();
         LoadCurrentFloor();
         LoadBestRunTotals();
@@ -123,7 +135,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void LoadCurrentFloor()
     {
-        currentFloor = PlayerPrefs.GetInt("currentFloor");
+        currentFloor = PlayerPrefs.GetInt("currentFloor", 1);
     }
 
     #endregion

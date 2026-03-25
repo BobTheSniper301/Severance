@@ -11,7 +11,7 @@ public class ElevatorScript : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         GameManager.instance.isTimerActive = false;
-        GameManager.instance.RoundTimes();
+        GameManager.instance.UpdateTimes();
         MenuManager.instance.FloorCompletionMenu();
         AudioManager.instance.Sound(GetComponent<AudioSource>().clip, true, true, AudioManager.SoundType.MUSIC);
     }

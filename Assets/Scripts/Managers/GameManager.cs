@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
-    public double floorTime;
-    public double totalTime;
+    public float floorTime;
+    public float totalTime;
+    double unroundedfloorTime;
+    double unroundedtotalTime;
     public bool isTimerActive;
 
 
@@ -27,23 +29,28 @@ public class GameManager : MonoBehaviour
     {
         if (isTimerActive)
         {
-            floorTime += Time.deltaTime;
-            totalTime += Time.deltaTime;
+            unroundedfloorTime += Time.deltaTime;
+            unroundedtotalTime += Time.deltaTime;
             // Debug.Log(floorTime);
         }
     }
 
 
-    public void RoundTimes()
+    public void UpdateTimes()
     {
-        floorTime = Math.Round(floorTime, 2);
-        totalTime = Math.Round(totalTime, 2);
+        floorTime = (float)Math.Round(unroundedfloorTime, 2);
+        totalTime = (float)Math.Round(unroundedtotalTime, 2);
+        Debug.Log("unroundedfloor time: " + unroundedfloorTime);
+        Debug.Log("floor time: " + floorTime);
+        SaveDataManager.instance.currentFloorTime = floorTime;
+        SaveDataManager.instance.currentTotal = totalTime;
     }
 
 
     public void NextFloor()
     {
         Debug.Log("game manager, go to next floor");
+        unroundedfloorTime = 0;
         floorTime = 0;
         AudioManager.instance.Sound(null, false, false, 0);
         isTimerActive = true;
