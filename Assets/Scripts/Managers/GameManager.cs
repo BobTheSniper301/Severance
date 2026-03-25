@@ -40,8 +40,6 @@ public class GameManager : MonoBehaviour
     {
         floorTime = (float)Math.Round(unroundedfloorTime, 2);
         totalTime = (float)Math.Round(unroundedtotalTime, 2);
-        Debug.Log("unroundedfloor time: " + unroundedfloorTime);
-        Debug.Log("floor time: " + floorTime);
         SaveDataManager.instance.currentFloorTime = floorTime;
         SaveDataManager.instance.currentTotal = totalTime;
     }
@@ -49,7 +47,6 @@ public class GameManager : MonoBehaviour
 
     public void NextFloor()
     {
-        Debug.Log("game manager, go to next floor");
         unroundedfloorTime = 0;
         floorTime = 0;
         AudioManager.instance.Sound(null, false, false, 0);

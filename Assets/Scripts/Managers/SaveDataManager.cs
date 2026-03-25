@@ -8,12 +8,12 @@ public class SaveDataManager : MonoBehaviour
     // Things we save
     public float[] floorBests = new float[5];
     public float[] bestRunTotals = new float[5]; // So players can see how they compare to both the best they have done on that floor, and the best full run they have done
+    public float[] currentRunTotals = new float[5];
     public float currentTotal;
     public int currentFloor = 1;
 
     public float finalTotal;
     public float currentFloorTime;
-    public float[] currentRunTotals = new float[5];
     public string[] floors = new string[]{"floor1", "floor2", "floor3", "floor4", "floor5"};
 
 
@@ -30,17 +30,14 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        LoadAll();
-    }
-
-
     public void UpdateTimes()
     {
-        if (floorBests[currentFloor-1] == 0 || currentFloorTime < floorBests[currentFloor-1])
+        currentRunTotals[currentFloor - 1] = currentFloorTime;
+        Debug.Log("current floor time: " + currentFloorTime);
+        Debug.Log("hi");
+        if (floorBests[currentFloor - 1] == 0 || currentFloorTime < floorBests[currentFloor - 1])
         {
-            floorBests[currentFloor-1] = currentFloorTime;
+            floorBests[currentFloor - 1] = currentFloorTime;
             Debug.Log("override current floor time: " + currentFloorTime);
         }
         if (bestRunTotals[4] == 0 || finalTotal < bestRunTotals[4])
@@ -95,7 +92,7 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveCurrentFloor()
     {
-        currentFloor = Mathf.Clamp(currentFloor, 1, floors.Length);
+        currentFloor = Mathf.Clamp(currentFloor, 1, 10000);
         PlayerPrefs.SetInt("currentFloor", currentFloor);
     }
 

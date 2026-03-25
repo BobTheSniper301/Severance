@@ -7,6 +7,7 @@ public class StartScript : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject startMenu;
     [SerializeField] GameObject recordsMenu;
+    [SerializeField] GameObject continueButton;
     GameObject activeMenu;
 
     void Start()
@@ -15,12 +16,37 @@ public class StartScript : MonoBehaviour
         StartAudioManager.instance.GameOpen();
     }
 
+    private void Update()
+    {
+        if (activeMenu == startMenu)
+        {
+            if (SaveDataManager.instance.currentFloor > 1)
+            {
+                continueButton.SetActive(true);
+            }
+            else
+            {
+                continueButton.SetActive(false);
+            }
+        }
+    }
+
     #region For Buttons
 
     public void Play()
     {
         StartAudioManager.instance.ButtonSFX();
-        SceneManager.LoadScene("TestScene1");
+        SaveDataManager.instance.currentFloor = 1;
+        SaveDataManager.instance.SaveAll();
+        SaveDataManager.instance.LoadAll();
+        SceneManager.LoadScene("Floor1");
+        Time.timeScale = 1;
+    }
+
+    public void Continue()
+    {
+        StartAudioManager.instance.ButtonSFX();
+        SceneManager.LoadScene("Floor" + SaveDataManager.instance.currentFloor.ToString());
         Time.timeScale = 1;
     }
 

@@ -148,7 +148,13 @@ public class MenuManager : MonoBehaviour
         currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
         pbFloorTime.text = "Total: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
         pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
-        
+
+        if (SaveDataManager.instance.currentFloor == 5)
+        {
+            SaveDataManager.instance.finalTotal = GameManager.instance.totalTime;
+            Debug.Log("floor 5 stuff");
+        }
+
         SaveDataManager.instance.UpdateTimes();
         SaveDataManager.instance.currentFloor += 1;
         SaveDataManager.instance.SaveAll();
