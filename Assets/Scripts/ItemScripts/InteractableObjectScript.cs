@@ -17,8 +17,6 @@ public abstract class InteractableObjectScript : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         itemSoundBubble.enabled = true;
-        Debug.Log("collision + object: " + this.name);
-        Debug.Log("throw or dropped");
         audioSource.volume = Mathf.Clamp(AudioManager.instance.sfxVolume * (itemThrownPower * (itemThrownSoundMultiplier * weight)), 0.1f, 1);
         itemSoundBubble.radius = audioSource.volume * itemSoundBubbleSizeMultiplier;
         // Want held objects to have extra "heft" to them

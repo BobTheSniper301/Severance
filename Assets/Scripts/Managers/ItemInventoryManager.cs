@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+// Also should def be renamed to item manager but eh
 public class ItemInventoryManager : MonoBehaviour
 {
     public static ItemInventoryManager instance { get; private set; }
@@ -69,6 +70,8 @@ public class ItemInventoryManager : MonoBehaviour
 
     void EnableActiveItem(GameObject itemToEnable)
     {
+        if (! itemToEnable) return;
+
         activeItem = itemToEnable;
         foreach(GameObject heldObject in heldObjects)
         {

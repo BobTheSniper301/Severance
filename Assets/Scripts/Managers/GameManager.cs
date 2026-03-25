@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,6 +47,6 @@ public class GameManager : MonoBehaviour
         floorTime = 0;
         AudioManager.instance.Sound(null, false, false, 0);
         isTimerActive = true;
-
+        SceneManager.LoadScene("Floor" + SaveDataManager.instance.currentFloor.ToString());
     }
 }

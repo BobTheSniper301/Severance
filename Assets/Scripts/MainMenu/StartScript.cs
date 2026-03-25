@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Ensure all other menus are off by default except for StartMenu
 public class StartScript : MonoBehaviour
 {
     [SerializeField] GameObject settingsMenu;

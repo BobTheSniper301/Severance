@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class ElevatorScript : MonoBehaviour
 {
+    [SerializeField] GameObject elevatorDoorsClosed;
+    public void Open()
+    {
+        // TODO: Make an animation for this
+        Destroy(elevatorDoorsClosed);
+    }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ELEVATOR!");
         GameManager.instance.isTimerActive = false;
         GameManager.instance.RoundTimes();
         MenuManager.instance.FloorCompletionMenu();
