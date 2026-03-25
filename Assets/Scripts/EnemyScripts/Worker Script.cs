@@ -5,10 +5,19 @@ using UnityEngine;
 public class WorkerScript : AiBehaviourScript
 {
     public List<GameObject> SuperVisors = new List<GameObject>();
+    GameObject closeSupervisor;
+
+    Vector3 desk;
+    public bool ratting = false;
+    bool working = false;
 
     protected override void Start()
     {
+        desk = transform.position;
+
         base.Start();
+
+        working = true;
 
         foreach (GameObject AI in GameObject.FindGameObjectsWithTag("Supervisor"))
         {
@@ -20,19 +29,34 @@ public class WorkerScript : AiBehaviourScript
     {
         base.Update();
 
-        if (playerSeen) Rat();
-        else if (!moving) Work();
+        //if (!working)
+        if (ratting)
+        {
+            agent.SetDestination(FindSupervisor().transform.position);
+            if (Vector3.Distance(transform.position, closeSupervisor.transform.position) < 2)
+            {
+                closeSupervisor.GetComponent<SupervisorScript>().KnowPlayerLocation();
+                ratting = false;
+                Work();
+            }
+        }
+        else if (playerSeen) Rat();
+        else if (!moving && !ratting && !working) Work();
     }
 
     public void Rat()
     {
-
+        ratting = true;
+        working = false;
+        agent.updateRotation = true;
+        lookTime = 0;
+        chasing = true;
+        agent.SetDestination(FindSupervisor().transform.position);
+        moving = true;
     }
 
     public GameObject FindSupervisor()
     {
-        GameObject closeSupervisor = null;
-
         foreach (GameObject AI in SuperVisors)
         { 
             if (closeSupervisor == null) closeSupervisor = AI;
@@ -50,11 +74,12 @@ public class WorkerScript : AiBehaviourScript
 
     public void Work()
     {
-        
+        working = true;
+        agent.SetDestination(desk);
     }
 
     public override void HeardSound(Transform t, int alertLevel)
     {
-
+        working = false;
     }
 }

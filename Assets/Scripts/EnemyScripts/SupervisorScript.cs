@@ -22,4 +22,11 @@ public class SupervisorScript : AiBehaviourScript
     {
 
     }
+
+    public void KnowPlayerLocation()
+    {
+        Debug.Log("rat");
+
+        InChase();
+    }
 }
