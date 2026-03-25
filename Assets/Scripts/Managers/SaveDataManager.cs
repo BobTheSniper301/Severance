@@ -59,6 +59,7 @@ public class SaveDataManager : MonoBehaviour
         SaveBestRunTotals();
         SaveCurrentFloor();
         SaveCurrentTotal();
+        PlayerPrefs.Save();
     }
 
     public void SaveFloorBests()

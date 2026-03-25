@@ -26,6 +26,7 @@ public class StartScript : MonoBehaviour
 
     public void Quit()
     {
+        SaveDataManager.instance.SaveAll();
         StartAudioManager.instance.ButtonSFX();
         Application.Quit();
     }

@@ -119,6 +119,7 @@ public class MenuManager : MonoBehaviour
 
     public void Quit()
     {
+        SaveDataManager.instance.SaveAll();
         AudioManager.instance.ButtonSFX();
         Application.Quit();
     }
