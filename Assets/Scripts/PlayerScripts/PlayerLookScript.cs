@@ -15,6 +15,7 @@ public class PlayerLookScript : MonoBehaviour
 
     private LayerMask interactableMask;
     private LayerMask assassinationMask;
+    public TestEnemyScript enemyBeingKilledScript;
     // private LayerMask clickableMask;
 
     #region Function Calls
@@ -80,8 +81,12 @@ public class PlayerLookScript : MonoBehaviour
                 }
                 else if (ItemInventoryManager.instance.activeItem && ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
                 {
+                    Debug.Log("kill");
                     // TODO: This needs to trigger an animation, and then set the animation to call a kill function or whatever when it ends
-                    assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().Die();
+                    enemyBeingKilledScript = assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>();
+                    enemyBeingKilledScript.StopEnemy();
+                    Debug.Log("kill pos: " + enemyBeingKilledScript.killPosition.name);
+                    PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition);
                 }
             }
         }

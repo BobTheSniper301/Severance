@@ -306,8 +306,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7915279367466193994}
-  - {fileID: 391283039836670366}
-  - {fileID: 921978119888921812}
   - {fileID: 7462560809589710390}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -374,7 +372,14 @@ MonoBehaviour:
   playerCameraJoint: {fileID: 5624220843166757291}
   playerCamera: {fileID: 529520972373148454}
   playerBody: {fileID: 5955056733696219717}
+  playerArms: {fileID: 0}
+  assassinationWeapons: []
+  activeAssassinationWeapon: {fileID: 0}
+  isLockPlayer: 0
+  lockPlayerPosition: {x: 0, y: 0, z: 0}
+  lockPlayerRotation: {x: 0, y: 0, z: 0, w: 0}
   playerMovementScript: {fileID: 1303889035173514878}
+  animator: {fileID: 0}
 --- !u!114 &1923320358686147643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLookScript
   PlayerLookDistance: 2
   camera: {fileID: 529520972373148454}
+  enemyBeingKilledScript: {fileID: 0}
 --- !u!95 &3240638494783777565
 Animator:
   serializedVersion: 7
@@ -898,7 +904,7 @@ GameObject:
   - component: {fileID: 4641110142802119538}
   m_Layer: 0
   m_Name: Computer_Old_Keyboard
-  m_TagString: Untagged
+  m_TagString: AssassinationWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -997,6 +1003,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   hitSfx: {fileID: 0}
   damage: 0
+  handcount: 0
 --- !u!1 &3481626191950748164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,13 +1119,13 @@ Transform:
   m_GameObject: {fileID: 5499809035713094651}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.935, y: -0.16600001, z: -0.14199999}
+  m_LocalPosition: {x: -0.899, y: -0.843, z: -0.306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2194822819183663500}
   - {fileID: 3432609195803669561}
-  m_Father: {fileID: 3177805489611193134}
+  m_Father: {fileID: 7462560809589710390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5545729373734295861
 GameObject:
@@ -1240,6 +1247,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1408413647937446755}
+  - {fileID: 391283039836670366}
+  - {fileID: 921978119888921812}
   - {fileID: 4784224560438139752}
   m_Father: {fileID: 3177805489611193134}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1493,14 +1502,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6672926416743319224}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.036, y: -0.677, z: -0.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7867051914933370294}
   - {fileID: 8710672518183813515}
-  m_Father: {fileID: 3177805489611193134}
+  m_Father: {fileID: 7462560809589710390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9063186236381046410
 GameObject:
@@ -1515,7 +1524,7 @@ GameObject:
   - component: {fileID: 6937327669246511823}
   m_Layer: 0
   m_Name: CoffeeCup
-  m_TagString: Untagged
+  m_TagString: AssassinationWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
