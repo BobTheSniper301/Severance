@@ -1006,7 +1006,7 @@ MonoBehaviour:
   floorCompletionMenu: {fileID: 899101959659981519}
   activeMenu: {fileID: 0}
   menuOpenOrder: []
-  pbTotalTime: {fileID: 4384550064095486553}
+  pbTotalTime: {fileID: 0}
   pbFloorTime: {fileID: 2759631257472615734}
   currentTotalTime: {fileID: 890551480007473445}
   currentFloorTime: {fileID: 1062968923810670387}
@@ -1452,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FloorCompletionMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 7190350637380174020, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -168
+      objectReference: {fileID: 0}
     - target: {fileID: 7203768722243864733, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1533,7 +1537,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8373846924922583605, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
@@ -1567,17 +1572,6 @@ MonoBehaviour:
 --- !u!114 &2759631257472615734 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1460489492377213848, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
-  m_PrefabInstance: {fileID: 3605304629223349934}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &4384550064095486553 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1067793435722661111, guid: 29901a77ea7310b46ad44c76d927a755, type: 3}
   m_PrefabInstance: {fileID: 3605304629223349934}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1986,6 +1980,10 @@ PrefabInstance:
     - target: {fileID: 3225475582501592303, guid: 4076d1e7e2da2b04aa92b08545fd402e, type: 3}
       propertyPath: m_Name
       value: SettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225475582501592303, guid: 4076d1e7e2da2b04aa92b08545fd402e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5520716478279901108, guid: 4076d1e7e2da2b04aa92b08545fd402e, type: 3}
       propertyPath: m_AnchorMax.x

@@ -12,6 +12,8 @@ public class SaveDataManager : MonoBehaviour
     public float currentTotal;
     public int currentFloor = 1;
 
+
+    public bool isActiveRun;
     public float finalTotal;
     public float currentFloorTime;
     public string[] floors = new string[]{"floor1", "floor2", "floor3", "floor4", "floor5"};
@@ -22,31 +24,39 @@ public class SaveDataManager : MonoBehaviour
 
         if (instance != null && instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
+
+    }
+
+    void Start()
+    {
+        LoadAll();
+    }
+
+    void Update()
+    {
+        if (currentFloor == 1 || currentFloor == 6)
+        {
+            isActiveRun = false;
+        }
+        else isActiveRun = true;
     }
 
     public void UpdateTimes()
     {
+        Debug.Log("current floor: " + currentFloor);
         currentRunTotals[currentFloor - 1] = currentFloorTime;
         Debug.Log("current floor time: " + currentFloorTime);
-        Debug.Log("hi");
         if (floorBests[currentFloor - 1] == 0 || currentFloorTime < floorBests[currentFloor - 1])
         {
             floorBests[currentFloor - 1] = currentFloorTime;
             Debug.Log("override current floor time: " + currentFloorTime);
-        }
-        if (bestRunTotals[4] == 0 || finalTotal < bestRunTotals[4])
-        {
-            for (int i = 0; i < bestRunTotals.Length; i++)
-            {
-                bestRunTotals[i] = currentRunTotals[i];
-            }
-            Debug.Log("override total runs time");
         }
     }
 
@@ -63,9 +73,9 @@ public class SaveDataManager : MonoBehaviour
     {
         Debug.Log("save all");
         SaveFloorBests();
-        SaveBestRunTotals();
         SaveCurrentFloor();
         SaveCurrentTotal();
+        SaveCurrentRunTotals();
         PlayerPrefs.Save();
     }
 
@@ -77,11 +87,11 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    public void SaveBestRunTotals()
+    public void SaveCurrentRunTotals()
     {
         for (int i = 0; i < floorBests.Length; i++)
         {
-            PlayerPrefs.SetFloat(floors[i] + "BestTotal", bestRunTotals[i]);
+            PlayerPrefs.SetFloat(floors[i] + "CurrentTotal", currentRunTotals[i]);
         }
     }
 
@@ -92,7 +102,6 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveCurrentFloor()
     {
-        currentFloor = Mathf.Clamp(currentFloor, 1, 10000);
         PlayerPrefs.SetInt("currentFloor", currentFloor);
     }
 
@@ -105,8 +114,8 @@ public class SaveDataManager : MonoBehaviour
         Debug.Log("load all");
         LoadFloorBests();
         LoadCurrentFloor();
-        LoadBestRunTotals();
         LoadCurrentTotal();
+        LoadCurrentRunTotals();
     }
 
     public void LoadFloorBests()
@@ -117,11 +126,13 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    public void LoadBestRunTotals()
+    public void LoadCurrentRunTotals()
     {
+        if (isActiveRun) return;
+
         for (int i = 0; i < floorBests.Length; i++)
         {
-            bestRunTotals[i] = PlayerPrefs.GetFloat(floors[i] + "BestTotal");
+            bestRunTotals[i] = PlayerPrefs.GetFloat(floors[i] + "CurrentTotal");
         }
     }
 

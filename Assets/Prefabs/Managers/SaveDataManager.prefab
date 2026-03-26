@@ -56,16 +56,16 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  currentTotal: 0
-  currentFloor: 0
-  finalTotal: 0
-  currentFloorTime: 0
   currentRunTotals:
   - 0
   - 0
   - 0
   - 0
   - 0
+  currentTotal: 0
+  currentFloor: 1
+  finalTotal: 0
+  currentFloorTime: 0
   floors:
   - floor1
   - floor2

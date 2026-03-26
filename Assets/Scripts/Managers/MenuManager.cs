@@ -27,6 +27,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] TMP_Text masterVolumeText;
     [SerializeField] TMP_Text musicVolumeText;
     [SerializeField] TMP_Text sfxVolumeText;
+    float totalTime;
 
     #region Function Calls
     private void Awake()
@@ -140,24 +141,30 @@ public class MenuManager : MonoBehaviour
     {
         if (activeMenu) activeMenu.SetActive(false);
        
+        SaveDataManager.instance.UpdateTimes();
         activeMenu = floorCompletionMenu;
         floorCompletionMenu.SetActive(true);
        
+        totalTime = 0;
+        foreach (float floorTime in SaveDataManager.instance.currentRunTotals)
+        {
+            Debug.Log ("totalTime: " + totalTime + " + " + floorTime + " :floorTime");
+            totalTime += floorTime;
+        }
         // Debug.Log(GameManager.instance.floorTime);
-        currentFloorTime.text = "Total: " + GameManager.instance.floorTime.ToString() + "s";
-        currentTotalTime.text = "Floor: " + GameManager.instance.totalTime.ToString() + "s";
-        pbFloorTime.text = "Total: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
-        pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
+        currentFloorTime.text = "Floor: " + GameManager.instance.floorTime.ToString() + "s";
+        currentTotalTime.text = "Total: " + totalTime.ToString() + "s";
+        pbFloorTime.text = "Floor: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
+        // pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
 
         if (SaveDataManager.instance.currentFloor == 5)
         {
             SaveDataManager.instance.finalTotal = GameManager.instance.totalTime;
             Debug.Log("floor 5 stuff");
         }
-
-        SaveDataManager.instance.UpdateTimes();
         SaveDataManager.instance.currentFloor += 1;
         SaveDataManager.instance.SaveAll();
+
     }
 
     public void UpdateSettingsMenu()

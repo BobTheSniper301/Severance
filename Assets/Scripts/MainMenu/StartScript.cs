@@ -16,11 +16,11 @@ public class StartScript : MonoBehaviour
         StartAudioManager.instance.GameOpen();
     }
 
-    private void Update()
+    private void Update() // Soley in update for if player wipes save data
     {
         if (activeMenu == startMenu)
         {
-            if (SaveDataManager.instance.currentFloor > 1)
+            if (SaveDataManager.instance.isActiveRun)
             {
                 continueButton.SetActive(true);
             }
@@ -35,6 +35,7 @@ public class StartScript : MonoBehaviour
 
     public void Play()
     {
+        SaveDataManager.instance.isActiveRun = true;
         StartAudioManager.instance.ButtonSFX();
         SaveDataManager.instance.currentFloor = 1;
         SaveDataManager.instance.SaveAll();
