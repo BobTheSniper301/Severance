@@ -53,7 +53,7 @@ public class PlayerLookScript : MonoBehaviour
                     {
                         interactableHit.transform.GetComponent<InteractableObjectScript>().Invoke("Interact", 0);
                     }
-                    else Debug.Log("Hands are full");
+                    else UiManager.instance.ErrorPrompt("Your hands are full");
                 }
                 else
                 {
@@ -76,7 +76,7 @@ public class PlayerLookScript : MonoBehaviour
             {
                 if (! ItemInventoryManager.instance.activeItem || ! ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
                 {
-                    Debug.Log("sorry you must be holding a weapon");
+                    UiManager.instance.ErrorPrompt("You need a weapon to assassinate");
                 }
                 else if (ItemInventoryManager.instance.activeItem && ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
                 {

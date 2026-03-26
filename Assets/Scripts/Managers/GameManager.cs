@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         {
             unroundedfloorTime += Time.deltaTime;
             unroundedtotalTime += Time.deltaTime;
-            // Debug.Log(floorTime);
         }
     }
 

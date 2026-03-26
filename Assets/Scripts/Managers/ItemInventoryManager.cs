@@ -18,8 +18,6 @@ public class ItemInventoryManager : MonoBehaviour
     float _throwPower;
     public float baseThrowPower = 3;
     public float throwRateMultiplier = 2;
-    
-    
 
     #region Function Calls
     void Awake()
@@ -206,12 +204,14 @@ public class ItemInventoryManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Your inventory is full");
+            UiManager.instance.ErrorPrompt("Your inventory is full");
         }
     }
 
     public void Pickup(GameObject itemToPickup)
     {
+        if (activeItem) DisableActiveItem();
+        
         activeItem = itemToPickup;
         itemToPickup.SetActive(false);
         EnableActiveItem(activeItem);

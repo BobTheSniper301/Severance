@@ -12,6 +12,7 @@ public class KeycardReaderScript : MonoBehaviour
         }
         else
         {
+            UiManager.instance.ErrorPrompt("Keycard Required");
             Debug.Log("you must have a keycard to open this door");
         }
     }

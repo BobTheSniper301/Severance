@@ -18,7 +18,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] List<GameObject> menuOpenOrder;
 
     // For FloorCompletionMenu
-    [SerializeField] TMP_Text pbTotalTime;
     [SerializeField] TMP_Text pbFloorTime;
     [SerializeField] TMP_Text currentTotalTime;
     [SerializeField] TMP_Text currentFloorTime;
@@ -151,11 +150,9 @@ public class MenuManager : MonoBehaviour
             Debug.Log ("totalTime: " + totalTime + " + " + floorTime + " :floorTime");
             totalTime += floorTime;
         }
-        // Debug.Log(GameManager.instance.floorTime);
         currentFloorTime.text = "Floor: " + GameManager.instance.floorTime.ToString() + "s";
         currentTotalTime.text = "Total: " + totalTime.ToString() + "s";
         pbFloorTime.text = "Floor: " + SaveDataManager.instance.bestRunTotals[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
-        // pbTotalTime.text = "Floor: " + SaveDataManager.instance.floorBests[SaveDataManager.instance.currentFloor - 1].ToString() + "s";
 
         if (SaveDataManager.instance.currentFloor == 5)
         {

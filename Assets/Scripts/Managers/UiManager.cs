@@ -14,6 +14,12 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject throwPowerPrompt;
         // ThrowPowerPrompt Values
     [SerializeField] TMP_Text throwPower;
+    [SerializeField] TMP_Text errorPromptText;
+    [SerializeField] GameObject errorPrompt;
+
+    public float errorTimerBaseValue = 3f;
+    public float errorTimer;
+    bool isErrorPromptActive;
 
     #endregion
 
@@ -32,6 +38,19 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (isErrorPromptActive)
+        {
+            errorTimer -= Time.deltaTime;
+        }
+        if (errorTimer <= 0f)
+        {
+            isErrorPromptActive = false;
+            errorPrompt.SetActive(false);
+        }
+    }
+
     #endregion
 
     public void InteractPrompt(bool status)
@@ -45,5 +64,15 @@ public class UiManager : MonoBehaviour
     {
         throwPowerPrompt.SetActive(SetActive);
         throwPower.text = "Power: " + ItemInventoryManager.instance.throwPower.ToString();
+    }
+
+    public void ErrorPrompt(string errorText)
+    {
+        Debug.Log("error prompt");
+        errorTimer = errorTimerBaseValue;
+        isErrorPromptActive = true;
+        errorPrompt.SetActive(true);
+        errorPromptText.text = errorText;
+
     }
 }
