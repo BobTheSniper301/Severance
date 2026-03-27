@@ -122,4 +122,11 @@ public abstract class AiBehaviourScript : MonoBehaviour
         agent.SetDestination(t.position);
         moving = true;
     }
+
+    public virtual void StopEnemy()
+    {
+        sleepState = true;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+    }
 }
