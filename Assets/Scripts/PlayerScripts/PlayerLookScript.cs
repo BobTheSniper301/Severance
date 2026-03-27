@@ -86,7 +86,7 @@ public class PlayerLookScript : MonoBehaviour
                     enemyBeingKilledScript = assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>();
                     enemyBeingKilledScript.StopEnemy();
                     Debug.Log("kill pos: " + enemyBeingKilledScript.killPosition.name);
-                    PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition);
+                    PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition, enemyBeingKilledScript.gameObject);
                 }
             }
         }

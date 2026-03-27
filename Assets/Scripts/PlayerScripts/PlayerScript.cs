@@ -7,14 +7,13 @@ public class PlayerScript : MonoBehaviour
     public GameObject playerCameraJoint;
     public Camera playerCamera;
     public GameObject playerBody;
+    public GameObject camerJoint;
 
     public GameObject playerArms;
     public GameObject[] assassinationWeapons;
     public GameObject activeAssassinationWeapon;
+    [SerializeField] CameraBobSystem cameraBobSystem;
     int activeAnimNum;
-    public bool isLockPlayer;
-    public Vector3 lockPlayerPosition;
-    public Quaternion lockPlayerRotation;
 
 
     public PlayerMovementScript playerMovementScript;
@@ -45,25 +44,15 @@ public class PlayerScript : MonoBehaviour
 
         GameManager.instance.isTimerActive = true;
     }
-
-    private void Update()
-    {
-        if (isLockPlayer)
-        {
-            this.gameObject.GetComponent<PlayerMovementScript>().enabled = false;
-            this.gameObject.transform.position = lockPlayerPosition;
-            this.gameObject.transform.rotation = lockPlayerRotation;
-        }
-    }
     #endregion
 
-    public void StartAssassination(GameObject killPosition)
+    public void StartAssassination(GameObject killPosition, GameObject enemy)
     {
-        isLockPlayer = true;
+        cameraBobSystem.enabled = false;
+        this.gameObject.GetComponent<PlayerMovementScript>().enabled = false;
         this.gameObject.transform.position = killPosition.transform.position;
-        this.gameObject.transform.rotation = killPosition.transform.rotation;
-        lockPlayerRotation = killPosition.transform.rotation;
-        lockPlayerPosition = killPosition.transform.position;
+        camerJoint.transform.localEulerAngles = new Vector3(0,0,0);
+        this.gameObject.transform.rotation = enemy.transform.rotation;
         playerArms.SetActive(true);
         for (int i = 0; i < assassinationWeapons.Length; i++)
         {
@@ -82,17 +71,16 @@ public class PlayerScript : MonoBehaviour
 
     public void AssassinationAnimation(int oneOrTwo)
     {
-        animator.SetTrigger("isAttacking" + oneOrTwo.ToString());
+        animator.Play(oneOrTwo.ToString() + "HandAssassination");
         activeAnimNum = oneOrTwo;   
     }
 
     public void FinishAssassination()
     {
-        animator.ResetTrigger("isAttacking" + activeAnimNum.ToString());
         GetComponent<PlayerLookScript>().enemyBeingKilledScript.Die();
         playerArms.SetActive(false);
         activeAssassinationWeapon.SetActive(false);
-        isLockPlayer = false;
         this.gameObject.GetComponent<PlayerMovementScript>().enabled = true;
+        cameraBobSystem.enabled = true;
     }
 }
