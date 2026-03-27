@@ -8,7 +8,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set; }
 
     [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioSource backgroundAudio;
+    public AudioSource backgroundAudio;
+    public AudioSource endingAudio;
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
@@ -39,6 +40,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (SaveDataManager.instance.currentFloor == 6)
+        {
+            backgroundAudio.clip = Resources.Load<AudioClip>("Sounds/EndingBackground");
+        }
+        backgroundAudio.Play();
+    }
+
     public void Sound(AudioClip audioClip, bool isPlaying, bool isLooping, SoundType soundType)
     {
         audioSource.loop = isLooping;
@@ -65,6 +75,7 @@ public class AudioManager : MonoBehaviour
         buttonAudioSource.volume = (float)Math.Round(sfxVolumeSlider.value);
         MenuManager.instance.UpdateSettingsMenu();
         backgroundAudio.volume = musicVolume;
+        endingAudio.volume = backgroundAudio.volume;
         backgroundAudio.volume = Mathf.Clamp(backgroundAudio.volume, 0.001f, 0.5f);
         if (activeSoundType == SoundType.MUSIC)
         {

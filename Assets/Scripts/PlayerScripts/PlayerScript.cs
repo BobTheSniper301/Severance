@@ -122,6 +122,8 @@ public class PlayerScript : MonoBehaviour
 
     public void EndGame()
     {
+        AudioManager.instance.endingAudio.Play();
+        AudioManager.instance.backgroundAudio.Stop();
         Debug.Log("end game");
         UiManager.instance.WinMenu();
     }

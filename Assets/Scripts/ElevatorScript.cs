@@ -11,6 +11,7 @@ public class ElevatorScript : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        AudioManager.instance.backgroundAudio.Stop();
         boxCollider.enabled = false;
         Debug.Log(this.gameObject.name);
         Debug.Log("finish floor");
