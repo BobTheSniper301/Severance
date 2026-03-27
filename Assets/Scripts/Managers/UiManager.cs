@@ -18,6 +18,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] TMP_Text errorPromptText;
     [SerializeField] GameObject errorPrompt;
     [SerializeField] GameObject deathMenu;
+    public GameObject endPrompt;
+    [SerializeField] GameObject winMenu;
 
     public float errorTimerBaseValue = 3f;
     public float errorTimer;
@@ -94,5 +96,13 @@ public class UiManager : MonoBehaviour
         MenuManager.instance.activeMenu = null;
         deathMenu.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    public void WinMenu()
+    {
+        // MenuManager.instance.activeMenu.SetActive(false);
+        Debug.Log("win menu");
+        MenuManager.instance.activeMenu = winMenu;
+        winMenu.SetActive(true);
     }
 }

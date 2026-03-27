@@ -83,9 +83,47 @@ public class PlayerScript : MonoBehaviour
         ItemInventoryManager.instance.activeItem = null;
     }
 
+    public void StartEndAssassination(GameObject killPosition)
+    {
+        if (playerMovementScript.isCrouching)
+        {
+            playerMovementScript.Uncrouch();
+        }
+        cameraBobSystem.enabled = false;
+        this.gameObject.GetComponent<PlayerMovementScript>().enabled = false;
+        this.gameObject.transform.position = killPosition.transform.position;
+        camerJoint.transform.localEulerAngles = new Vector3(0,0,0);
+        this.gameObject.transform.rotation = killPosition.transform.rotation;
+        playerArms.SetActive(true);
+        for (int i = 0; i < assassinationWeapons.Length; i++)
+        {
+            if (assassinationWeapons[i].name == ItemInventoryManager.instance.activeItem.name)
+            {
+                assassinationWeapons[i].SetActive(true);
+                activeAssassinationWeapon = assassinationWeapons[i];
+            }
+        }
+        EndAnimation();
+        Destroy(ItemInventoryManager.instance.activeItem);
+        ItemInventoryManager.instance.visibleItem.SetActive(false);
+        ItemInventoryManager.instance.visibleItem = null;
+        ItemInventoryManager.instance.activeItem = null;
+    }
+
     public void AssassinationAnimation(int oneOrTwo)
     {
         animator.Play(oneOrTwo.ToString() + "HandAssassination");
+    }
+
+    public void EndAnimation()
+    {
+        animator.Play("EndAssassination");
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("end game");
+        UiManager.instance.WinMenu();
     }
 
     public void FinishAssassination()

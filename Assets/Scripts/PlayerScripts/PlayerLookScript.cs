@@ -9,12 +9,14 @@ public class PlayerLookScript : MonoBehaviour
 
     private RaycastHit interactableHit;
     private RaycastHit assassinationColliderHit;
+    private RaycastHit endingColliderHit;
     // private RaycastHit clickableHit;
 
     [SerializeField] new Camera camera;
 
     private LayerMask interactableMask;
     private LayerMask assassinationMask;
+    private LayerMask endingMask;
     public AiBehaviourScript enemyBeingKilledScript;
     // private LayerMask clickableMask;
 
@@ -24,6 +26,7 @@ public class PlayerLookScript : MonoBehaviour
     {
         interactableMask = LayerMask.GetMask("Interactable");
         assassinationMask = LayerMask.GetMask("Assassination");
+        endingMask = LayerMask.GetMask("Ending");
     }
 
     void Update()
@@ -34,6 +37,8 @@ public class PlayerLookScript : MonoBehaviour
         InteractCheck();
 
         AssassinationCheck();
+
+        EndingCheck();
 
         Debug.DrawRay(cameraRay.origin, cameraRay.direction * PlayerLookDistance, Color.red, 0.5f);
     }
@@ -89,6 +94,30 @@ public class PlayerLookScript : MonoBehaviour
                     PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition, enemyBeingKilledScript.gameObject);
                 }
             }
+        }
+    }
+
+    void EndingCheck()
+    {
+        if (Physics.Raycast(cameraRay, out endingColliderHit, PlayerLookDistance, endingMask) && !MenuManager.instance.activeMenu)
+        {
+            UiManager.instance.endPrompt.SetActive(true);
+            EndScript endScript = endingColliderHit.transform.gameObject.GetComponent<EndScript>();
+            if (Input.GetKeyDown("f"))
+            {
+                if (! ItemInventoryManager.instance.visibleItem)
+                {
+                    UiManager.instance.ErrorPrompt("You need a weapon to assassinate");
+                }
+                else
+                {
+                    PlayerScript.instance.StartEndAssassination(endScript.killSpot);
+                }
+            }
+        }
+        else
+        {
+            UiManager.instance.endPrompt.SetActive(false);
         }
     }
 }

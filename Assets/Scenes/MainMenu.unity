@@ -3331,7 +3331,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Welcome to Severance. After getting fired you decide to take out your rage
     by killing your bosses. Go up each floor, killing your constant nagging managers,
-    whilst avoiding the tower supervisors from catching you. Get to the top floor
+    whilst avoiding the towering supervisors from catching you. Get to the top floor
     to kill the CEO, the root of the problem.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a9fb72713462bd34a99acbf23a40dd74, type: 2}
