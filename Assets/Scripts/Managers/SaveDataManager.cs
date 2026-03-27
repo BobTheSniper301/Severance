@@ -50,13 +50,10 @@ public class SaveDataManager : MonoBehaviour
 
     public void UpdateTimes()
     {
-        Debug.Log("current floor: " + currentFloor);
         currentRunTotals[currentFloor - 1] = currentFloorTime;
-        Debug.Log("current floor time: " + currentFloorTime);
         if (floorBests[currentFloor - 1] == 0 || currentFloorTime < floorBests[currentFloor - 1])
         {
             floorBests[currentFloor - 1] = currentFloorTime;
-            Debug.Log("override current floor time: " + currentFloorTime);
         }
     }
 
@@ -71,7 +68,6 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveAll()
     {
-        Debug.Log("save all");
         SaveFloorBests();
         SaveCurrentFloor();
         SaveCurrentTotal();
@@ -111,7 +107,6 @@ public class SaveDataManager : MonoBehaviour
 
     public void LoadAll()
     {
-        Debug.Log("load all");
         LoadFloorBests();
         LoadCurrentFloor();
         LoadCurrentTotal();

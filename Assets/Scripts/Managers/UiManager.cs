@@ -72,7 +72,6 @@ public class UiManager : MonoBehaviour
 
     public void ErrorPrompt(string errorText)
     {
-        Debug.Log("error prompt");
         errorTimer = errorTimerBaseValue;
         isErrorPromptActive = true;
         errorPrompt.SetActive(true);
@@ -100,8 +99,6 @@ public class UiManager : MonoBehaviour
 
     public void WinMenu()
     {
-        // MenuManager.instance.activeMenu.SetActive(false);
-        Debug.Log("win menu");
         MenuManager.instance.activeMenu = winMenu;
         winMenu.SetActive(true);
     }

@@ -38,9 +38,10 @@ public class PlayerLookScript : MonoBehaviour
 
         AssassinationCheck();
 
-        EndingCheck();
-
-        Debug.DrawRay(cameraRay.origin, cameraRay.direction * PlayerLookDistance, Color.red, 0.5f);
+        if (SaveDataManager.instance.currentFloor == 6)
+        {
+            EndingCheck();
+        }
     }
 
     #endregion
@@ -86,11 +87,8 @@ public class PlayerLookScript : MonoBehaviour
                 }
                 else if (ItemInventoryManager.instance.activeItem && ItemInventoryManager.instance.activeItem?.GetComponent<WeaponScript>())
                 {
-                    Debug.Log("kill");
-                    // TODO: This needs to trigger an animation, and then set the animation to call a kill function or whatever when it ends
                     enemyBeingKilledScript = assassinationColliderHit.transform.parent.GetComponent<AiBehaviourScript>();
                     enemyBeingKilledScript.StopEnemy();
-                    Debug.Log("kill pos: " + enemyBeingKilledScript.killPosition.name);
                     PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition, enemyBeingKilledScript.gameObject);
                 }
             }

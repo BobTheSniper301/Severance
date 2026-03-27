@@ -3113,10 +3113,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 136
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 15479
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -3137,6 +3137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   elevatorDoorsClosed: {fileID: 3511064689909760477}
+  boxCollider: {fileID: 1028859029795417888}
 --- !u!82 &551862045172311138
 AudioSource:
   m_ObjectHideFlags: 0

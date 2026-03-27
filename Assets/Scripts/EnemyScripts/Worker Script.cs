@@ -48,7 +48,6 @@ public class WorkerScript : AiBehaviourScript
 
     public void Rat()
     {
-        Debug.Log("rat");
         ratting = true;
         working = false;
         agent.updateRotation = true;
@@ -77,8 +76,6 @@ public class WorkerScript : AiBehaviourScript
 
     public void Work()
     {
-        Debug.Log("work");
-
         working = true;
         agent.SetDestination(desk);
     }

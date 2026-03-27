@@ -3,6 +3,7 @@ using UnityEngine;
 public class ElevatorScript : MonoBehaviour
 {
     [SerializeField] GameObject elevatorDoorsClosed;
+    [SerializeField] BoxCollider boxCollider;
     public void Open()
     {
         // TODO: Make an animation for this
@@ -10,6 +11,9 @@ public class ElevatorScript : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        boxCollider.enabled = false;
+        Debug.Log(this.gameObject.name);
+        Debug.Log("finish floor");
         GameManager.instance.isTimerActive = false;
         GameManager.instance.UpdateTimes();
         MenuManager.instance.FloorCompletionMenu();

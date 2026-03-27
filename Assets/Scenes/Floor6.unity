@@ -240,9 +240,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4021779037986478689, guid: b53a8b163f9a5c3409cc9cd7222ee57b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231883776515815602, guid: b53a8b163f9a5c3409cc9cd7222ee57b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4474076305402709330, guid: b53a8b163f9a5c3409cc9cd7222ee57b, type: 3}
       propertyPath: m_Name
       value: Level 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485476338574512419, guid: b53a8b163f9a5c3409cc9cd7222ee57b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8296879465082253356, guid: b53a8b163f9a5c3409cc9cd7222ee57b, type: 3}
       propertyPath: killSpot
@@ -5862,6 +5874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   audioSource: {fileID: 5336629386741987785}
+  backgroundAudio: {fileID: 0}
   masterVolumeSlider: {fileID: 4213753313587897010}
   musicVolumeSlider: {fileID: 2991748858470554167}
   sfxVolumeSlider: {fileID: 1000478635334205835}
