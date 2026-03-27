@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class UiManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] TMP_Text throwPower;
     [SerializeField] TMP_Text errorPromptText;
     [SerializeField] GameObject errorPrompt;
+    [SerializeField] GameObject deathMenu;
 
     public float errorTimerBaseValue = 3f;
     public float errorTimer;
@@ -73,6 +75,20 @@ public class UiManager : MonoBehaviour
         isErrorPromptActive = true;
         errorPrompt.SetActive(true);
         errorPromptText.text = errorText;
+    }
 
+    public void DeathRestart()
+    {
+        deathMenu.SetActive(false);
+        AudioManager.instance.ButtonSFX();
+        SceneManager.LoadScene("Floor" + SaveDataManager.instance.currentFloor.ToString());
+        Time.timeScale = 1;
+    }
+
+    public void DeathMenu()
+    {
+        MenuManager.instance.activeMenu = null;
+        deathMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 }

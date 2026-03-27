@@ -8,6 +8,7 @@ public class StartScript : MonoBehaviour
     [SerializeField] GameObject startMenu;
     [SerializeField] GameObject recordsMenu;
     [SerializeField] GameObject continueButton;
+    [SerializeField] GameObject aboutMenu;
     GameObject activeMenu;
 
     void Start()
@@ -73,6 +74,14 @@ public class StartScript : MonoBehaviour
         activeMenu.SetActive(false);
         activeMenu = recordsMenu;
         recordsMenu.GetComponent<RecordsMenuScript>().UpdateTimes();
+    }
+
+    public void AboutMenu()
+    {
+        StartAudioManager.instance.ButtonSFX();
+        aboutMenu.SetActive(true);
+        activeMenu.SetActive(false);
+        activeMenu = aboutMenu;
     }
 
     public void Back()

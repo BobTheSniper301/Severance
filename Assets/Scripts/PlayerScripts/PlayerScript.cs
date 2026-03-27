@@ -51,7 +51,9 @@ public class PlayerScript : MonoBehaviour
 
     public void Die()
     {
-        // TODO:
+        Debug.Log("player die");
+        UiManager.instance.DeathMenu();
+        MenuManager.instance.gameObject.SetActive(false);
     }
 
     public void StartAssassination(GameObject killPosition, GameObject enemy)
