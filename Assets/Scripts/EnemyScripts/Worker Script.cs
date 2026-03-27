@@ -11,12 +11,6 @@ public class WorkerScript : AiBehaviourScript
     public bool ratting = false;
     bool working = false;
 
-    private void Awake()
-    {
-        playerSeen = false;
-        sleepState = true;
-    }
-
     protected override void Start()
     {
         desk = transform.position;
@@ -46,9 +40,10 @@ public class WorkerScript : AiBehaviourScript
                 Work();
             }
         }
-        else if (playerSeen) Rat();
-        else if (!moving && !ratting && !working) Work();
-        else if (!moving && !ratting && working && Vector3.Distance(desk, transform.position) < 1) sleepState = true;
+        if (playerSeen) Rat();
+        else if (!moving) Work();
+        // else if (!moving && !ratting && !working) Work();
+        // else if (!moving && !ratting && working && Vector3.Distance(desk, transform.position) < 1) sleepState = true;
     }
 
     public void Rat()

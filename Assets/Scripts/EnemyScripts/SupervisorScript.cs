@@ -14,7 +14,7 @@ public class SupervisorScript : AiBehaviourScript
     {
         base.Update();
 
-        if (Vector3.Distance(player.transform.position, transform.position) < 1) PlayerScript.instance.Die();
+        if (Vector3.Distance(player.transform.position, transform.position) < 2) PlayerScript.instance.Die();
 
         if (playerSeen) InChase();
         else if (!moving) OnPatrol();

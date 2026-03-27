@@ -489,9 +489,9 @@ MonoBehaviour:
   radius: 4
   smallRadius: 0.7
   FarRadius: 8
-  angle: 40
-  closeAngle: 188
-  FarAngle: 3
+  angle: 111
+  closeAngle: 230
+  FarAngle: 29
   player: {fileID: 0}
   targetMask:
     serializedVersion: 2

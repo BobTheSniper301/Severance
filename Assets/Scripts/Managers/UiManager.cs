@@ -79,6 +79,8 @@ public class UiManager : MonoBehaviour
 
     public void DeathRestart()
     {
+        Cursor.lockState = CursorLockMode.None;
+        PlayerScript.instance.playerMovementScript.enabled = true;
         deathMenu.SetActive(false);
         AudioManager.instance.ButtonSFX();
         SceneManager.LoadScene("Floor" + SaveDataManager.instance.currentFloor.ToString());
@@ -87,6 +89,8 @@ public class UiManager : MonoBehaviour
 
     public void DeathMenu()
     {
+        Cursor.lockState = CursorLockMode.None;
+        PlayerScript.instance.playerMovementScript.enabled = false;
         MenuManager.instance.activeMenu = null;
         deathMenu.SetActive(true);
         Time.timeScale = 0;
