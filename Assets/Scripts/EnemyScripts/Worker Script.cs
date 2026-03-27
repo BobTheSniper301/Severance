@@ -87,6 +87,8 @@ public class WorkerScript : AiBehaviourScript
 
     public override void HeardSound(Transform t, int alertLevel)
     {
+        base.HeardSound(t, alertLevel);
+
         sleepState = false;
         working = false;
     }

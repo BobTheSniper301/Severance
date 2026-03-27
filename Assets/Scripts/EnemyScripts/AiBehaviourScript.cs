@@ -112,8 +112,14 @@ public abstract class AiBehaviourScript : MonoBehaviour
 
     protected virtual void Die()
     {
-
+        Destroy(gameObject);
     }
 
-    public abstract void HeardSound(Transform t, int alertLevel);
+    public virtual void HeardSound(Transform t, int alertLevel)
+    {
+        agent.updateRotation = true;
+        lookTime = 0;
+        agent.SetDestination(t.position);
+        moving = true;
+    }
 }

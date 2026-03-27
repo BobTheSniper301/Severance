@@ -18,11 +18,6 @@ public class SupervisorScript : AiBehaviourScript
         else if (!moving) OnPatrol();
     }
 
-    public override void HeardSound(Transform t, int alertLevel)
-    {
-
-    }
-
     public void KnowPlayerLocation()
     {
         Debug.Log("rat");

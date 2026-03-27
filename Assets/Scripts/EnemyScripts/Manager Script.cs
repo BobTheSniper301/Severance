@@ -32,7 +32,7 @@ public class ManagerScript : AiBehaviourScript
         moving = true;
     }
 
-    public override void HeardSound(Transform t, int alertLevel)
+    protected override void Die()
     {
         ItemInventoryManager.instance.SpawnObject(keycard, this.transform.position);
         Destroy(this.gameObject);
