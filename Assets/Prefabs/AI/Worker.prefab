@@ -396,8 +396,10 @@ MonoBehaviour:
   AiScript: {fileID: 6286972978817213295}
   radius: 4
   smallRadius: 0.7
+  FarRadius: 8
   angle: 40
   closeAngle: 188
+  FarAngle: 3
   player: {fileID: 0}
   targetMask:
     serializedVersion: 2

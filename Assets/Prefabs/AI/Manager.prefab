@@ -428,8 +428,10 @@ MonoBehaviour:
   AiScript: {fileID: 5250930954160282410}
   radius: 8.32
   smallRadius: 2.51
+  FarRadius: 17
   angle: 51
   closeAngle: 307
+  FarAngle: 6
   player: {fileID: 0}
   targetMask:
     serializedVersion: 2
@@ -439,7 +441,7 @@ MonoBehaviour:
     m_Bits: 1
   crouchObstacle:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1024
 --- !u!195 &1374050604393479951
 NavMeshAgent:
   m_ObjectHideFlags: 0
