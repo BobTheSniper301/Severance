@@ -77,20 +77,31 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (Input.GetKeyDown("c") && canMove && !isSprinting && ! isCrouching)
         {
-            isCrouching = true;
-            PlayerScript.instance.playerBody.transform.localScale = new Vector3(1, 0.75f, 1);
-            PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height *= .75f;
-            this.GetComponent<CharacterController>().height *= .75f;
+            Crouch();
         }
         else if (Input.GetKeyDown("c") && canMove && !isSprinting)
         {
-            isCrouching = false;
-            PlayerScript.instance.playerBody.transform.localScale = playerBodyStartScale;
-            PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height = playerBodyCapsuleStartHeight;
-            this.GetComponent<CharacterController>().height = characterControlerStartHeight;
+            Uncrouch();
         }
-
         #endregion
+
     }
 
+    public void Uncrouch()
+    {
+        isCrouching = false;
+        PlayerScript.instance.isCrouching = isCrouching;
+        PlayerScript.instance.playerBody.transform.localScale = playerBodyStartScale;
+        PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height = playerBodyCapsuleStartHeight;
+        this.GetComponent<CharacterController>().height = characterControlerStartHeight;
+    }
+
+    public void Crouch()
+    {
+        isCrouching = true;
+        PlayerScript.instance.isCrouching = isCrouching;
+        PlayerScript.instance.playerBody.transform.localScale = new Vector3(1, 0.75f, 1);
+        PlayerScript.instance.playerBody.GetComponent<CapsuleCollider>().height *= .75f;
+        this.GetComponent<CharacterController>().height *= .75f;
+    }
 }

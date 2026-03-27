@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour
     public Camera playerCamera;
     public GameObject playerBody;
     public GameObject camerJoint;
+    public bool isCrouching;
 
     public GameObject playerArms;
     public GameObject[] assassinationWeapons;
@@ -46,8 +47,17 @@ public class PlayerScript : MonoBehaviour
     }
     #endregion
 
+    public void Die()
+    {
+        // TODO:
+    }
+
     public void StartAssassination(GameObject killPosition, GameObject enemy)
     {
+        if (playerMovementScript.isCrouching)
+        {
+            playerMovementScript.Uncrouch();
+        }
         cameraBobSystem.enabled = false;
         this.gameObject.GetComponent<PlayerMovementScript>().enabled = false;
         this.gameObject.transform.position = killPosition.transform.position;
