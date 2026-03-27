@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set; }
 
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource backgroundAudio;
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider sfxVolumeSlider;
@@ -63,6 +64,8 @@ public class AudioManager : MonoBehaviour
         sfxVolume = sfxVolumeSlider.value;
         buttonAudioSource.volume = (float)Math.Round(sfxVolumeSlider.value);
         MenuManager.instance.UpdateSettingsMenu();
+        backgroundAudio.volume = musicVolume;
+        backgroundAudio.volume = Mathf.Clamp(backgroundAudio.volume, 0.001f, 0.5f);
         if (activeSoundType == SoundType.MUSIC)
         {
             audioSource.volume = musicVolume;

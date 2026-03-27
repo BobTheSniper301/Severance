@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 1923320358686147643}
   - component: {fileID: 3240638494783777565}
   - component: {fileID: 8061718896788527422}
+  - component: {fileID: 1626850357749435161}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -374,6 +375,7 @@ MonoBehaviour:
   playerCamera: {fileID: 529520972373148454}
   playerBody: {fileID: 5955056733696219717}
   camerJoint: {fileID: 5624220843166757291}
+  isCrouching: 0
   playerArms: {fileID: 6672926416743319224}
   assassinationWeapons: []
   activeAssassinationWeapon: {fileID: 0}
@@ -429,6 +431,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423f97f0b2e66d44dacc91e196179864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!208 &1626850357749435161
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838884147557501980}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.1, y: 1, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0.04, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &853197535987871894
 GameObject:
   m_ObjectHideFlags: 0
