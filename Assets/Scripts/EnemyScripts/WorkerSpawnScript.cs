@@ -1,1 +1,1 @@
-using UnityEngine;public class WorkerSpawnScript:MonoBehaviour{public GameObject Worker;void Start(){Instantiate(Worker);}}
+using UnityEngine;public class WorkerSpawnScript:MonoBehaviour{public GameObject Worker;Vector3 offset;public bool spawn;void Start(){offset = (transform.rotation.eulerAngles + new Vector3(0, 180, 0));if (spawn) Instantiate(Worker, this.transform.position, Quaternion.Euler(offset)); }}

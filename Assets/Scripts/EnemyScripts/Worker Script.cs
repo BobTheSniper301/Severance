@@ -11,13 +11,19 @@ public class WorkerScript : AiBehaviourScript
     public bool ratting = false;
     bool working = false;
 
+    private void Awake()
+    {
+        playerSeen = false;
+        sleepState = true;
+    }
+
     protected override void Start()
     {
         desk = transform.position;
 
         base.Start();
 
-        working = true;
+        Work();
 
         foreach (GameObject AI in GameObject.FindGameObjectsWithTag("Supervisor"))
         {
@@ -74,12 +80,16 @@ public class WorkerScript : AiBehaviourScript
 
     public void Work()
     {
+        sleepState = true;
         working = true;
         agent.SetDestination(desk);
     }
 
     public override void HeardSound(Transform t, int alertLevel)
     {
+        base.HeardSound(t, alertLevel);
+
+        sleepState = false;
         working = false;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ManagerScript : AiBehaviourScript
 {
+    public GameObject keycard;
+
     protected override void Start()
     {
         base.Start();
@@ -30,9 +32,10 @@ public class ManagerScript : AiBehaviourScript
         moving = true;
     }
 
-    public override void HeardSound(Transform t, int alertLevel)
+    protected override void Die()
     {
-
+        ItemInventoryManager.instance.SpawnObject(keycard, this.transform.position);
+        Destroy(this.gameObject);
     }
 
     public Transform FindPoint(Vector3 playerPosition, List<Transform> patrol)

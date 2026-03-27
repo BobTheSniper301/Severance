@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public abstract class AiBehaviourScript : MonoBehaviour
 {
@@ -111,8 +112,21 @@ public abstract class AiBehaviourScript : MonoBehaviour
 
     protected virtual void Die()
     {
-
+        Destroy(gameObject);
     }
 
-    public abstract void HeardSound(Transform t, int alertLevel);
+    public virtual void HeardSound(Transform t, int alertLevel)
+    {
+        agent.updateRotation = true;
+        lookTime = 0;
+        agent.SetDestination(t.position);
+        moving = true;
+    }
+
+    public virtual void StopEnemy()
+    {
+        sleepState = true;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+    }
 }
