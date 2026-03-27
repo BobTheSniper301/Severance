@@ -57,11 +57,11 @@ Transform:
   m_GameObject: {fileID: 5646224215985296545}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.70710677}
-  m_LocalPosition: {x: 0, y: 1.204, z: -0.262}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.85999995, z: -0.18714222}
+  m_LocalScale: {x: 0.7142857, y: 0.7142857, z: 0.7142857}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3114484919878664839}
+  m_Father: {fileID: 4376031706008235650}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!65 &851645399352679741
 BoxCollider:
@@ -78,12 +78,96 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.2, y: 1.5, z: 0.46069956}
   m_Center: {x: 0, y: 0, z: -0.019526005}
+--- !u!1 &6753264880680747904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6663702032924279866}
+  m_Layer: 11
+  m_Name: KillPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6663702032924279866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753264880680747904}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.901, z: -1.2514291}
+  m_LocalScale: {x: 0.7142857, y: 0.7142857, z: 0.7142857}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4376031706008235650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7045692230049424453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5658269046965728529}
+  - component: {fileID: 5619356494062412132}
+  m_Layer: 11
+  m_Name: SoundCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5658269046965728529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045692230049424453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.868, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4376031706008235650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5619356494062412132
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045692230049424453}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9023657412140660728
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +197,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1417860840564448603}
   - {fileID: 1124903828588969209}
   - {fileID: 4376031706008235650}
   m_Father: {fileID: 0}
@@ -364,7 +447,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7081915624954601244, guid: 1c87b0fb88c060d429ba7fac194f745f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6663702032924279866}
+    - targetCorrespondingSourceObject: {fileID: 7081915624954601244, guid: 1c87b0fb88c060d429ba7fac194f745f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1417860840564448603}
+    - targetCorrespondingSourceObject: {fileID: 7081915624954601244, guid: 1c87b0fb88c060d429ba7fac194f745f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5658269046965728529}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7567124972016321958, guid: 1c87b0fb88c060d429ba7fac194f745f, type: 3}
       insertIndex: -1
@@ -445,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerScript
   player: {fileID: 0}
+  killPosition: {fileID: 6753264880680747904}
   patrol: {fileID: 4069869964744718607}
   patrols: []
   currentPoint: 0

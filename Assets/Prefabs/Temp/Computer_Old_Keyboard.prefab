@@ -85,7 +85,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.04829187, z: 0, w: 0.9988333}
   m_LocalPosition: {x: 0.18900013, y: 0.9499999, z: 0.2171104}
-  m_LocalScale: {x: 0.9969367, y: 1, z: 0.7535072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4408341997731517889}
@@ -166,11 +166,12 @@ MonoBehaviour:
   isThrownOrDropped: 0
   itemSoundBubble: {fileID: 139336712295038123}
   itemThrownSoundMultiplier: 0.2
-  itemSoundBubbleSizeMultiplier: 5
+  itemSoundBubbleSizeMultiplier: 2
   dropSfx: {fileID: 8300000, guid: 04fad6cd67769cd4682deec0743ac81d, type: 3}
   audioSource: {fileID: 5647587728797056278}
   hitSfx: {fileID: 0}
   damage: 0
+  handcount: 2
 --- !u!54 &2802251419964555026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0

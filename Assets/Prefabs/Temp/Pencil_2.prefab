@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.36063185, y: 0, z: 0, w: 0.9327083}
   m_LocalPosition: {x: 0.55, y: 0.99, z: 0.2082}
-  m_LocalScale: {x: 1, y: 0.8699905, z: 0.8469105}
+  m_LocalScale: {x: 1, y: 0.7568843, z: 0.71725667}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 192622222399117184}
@@ -111,13 +111,14 @@ MonoBehaviour:
   weight: 1
   itemThrownPower: 0.1
   isThrownOrDropped: 0
-  itemSoundBubble: {fileID: 0}
+  itemSoundBubble: {fileID: 6386343464796839728}
   itemThrownSoundMultiplier: 0.2
-  itemSoundBubbleSizeMultiplier: 5
+  itemSoundBubbleSizeMultiplier: 2
   dropSfx: {fileID: 8300000, guid: 04fad6cd67769cd4682deec0743ac81d, type: 3}
   audioSource: {fileID: 1884490937832500875}
   hitSfx: {fileID: 0}
   damage: 0
+  handcount: 1
 --- !u!54 &3555171239779223235
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,7 +159,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -377,5 +378,10 @@ PrefabInstance:
 --- !u!4 &2593110703605587162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8401699245692567070, guid: 23788c45a35b2ea4993dbf8e962555c3, type: 3}
+  m_PrefabInstance: {fileID: 6297229101874848452}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &6386343464796839728 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 1136201276487040500, guid: 23788c45a35b2ea4993dbf8e962555c3, type: 3}
   m_PrefabInstance: {fileID: 6297229101874848452}
   m_PrefabAsset: {fileID: 0}

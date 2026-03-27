@@ -139,9 +139,9 @@ MonoBehaviour:
   weight: 5
   itemThrownPower: 0.1
   isThrownOrDropped: 0
-  itemSoundBubble: {fileID: 0}
+  itemSoundBubble: {fileID: 1445494157622906502}
   itemThrownSoundMultiplier: 0.2
-  itemSoundBubbleSizeMultiplier: 5
+  itemSoundBubbleSizeMultiplier: 2
   dropSfx: {fileID: 8300000, guid: 04fad6cd67769cd4682deec0743ac81d, type: 3}
   audioSource: {fileID: 3693922884164634887}
 --- !u!82 &3693922884164634887
@@ -157,7 +157,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -373,6 +373,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23788c45a35b2ea4993dbf8e962555c3, type: 3}
+--- !u!135 &1445494157622906502 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 1136201276487040500, guid: 23788c45a35b2ea4993dbf8e962555c3, type: 3}
+  m_PrefabInstance: {fileID: 2002963073402336114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8021791364669951340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8401699245692567070, guid: 23788c45a35b2ea4993dbf8e962555c3, type: 3}

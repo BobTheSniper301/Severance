@@ -32,7 +32,7 @@ public class ManagerScript : AiBehaviourScript
         moving = true;
     }
 
-    protected override void Die()
+    public override void Die()
     {
         ItemInventoryManager.instance.SpawnObject(keycard, this.transform.position);
         Destroy(this.gameObject);

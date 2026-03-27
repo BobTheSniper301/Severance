@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     double unroundedfloorTime;
     double unroundedtotalTime;
     public bool isTimerActive;
+    float soundDelayTimer  = 5;
+    bool isSoundDelayTimerActive;
 
 
     private void Awake()
@@ -25,6 +27,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        soundDelayTimer = 5;
+        StartSoundDelayTimer();
+    }
+
     void Update()
     {
         if (isTimerActive)
@@ -32,8 +40,25 @@ public class GameManager : MonoBehaviour
             unroundedfloorTime += Time.deltaTime;
             unroundedtotalTime += Time.deltaTime;
         }
+        if (isSoundDelayTimerActive)
+        {
+            soundDelayTimer -= Time.deltaTime;
+        }
+        if (soundDelayTimer > 0)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioManager.instance.ChangeVolume();
+            isSoundDelayTimerActive = false;
+        }
     }
 
+    public void StartSoundDelayTimer()
+    {
+        isSoundDelayTimerActive = true;
+    }
 
     public void UpdateTimes()
     {

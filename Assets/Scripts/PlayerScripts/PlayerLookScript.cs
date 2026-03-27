@@ -15,7 +15,7 @@ public class PlayerLookScript : MonoBehaviour
 
     private LayerMask interactableMask;
     private LayerMask assassinationMask;
-    public TestEnemyScript enemyBeingKilledScript;
+    public AiBehaviourScript enemyBeingKilledScript;
     // private LayerMask clickableMask;
 
     #region Function Calls
@@ -70,7 +70,7 @@ public class PlayerLookScript : MonoBehaviour
 
     void AssassinationCheck()
     {
-        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>().isVulnerable)
+        if (Physics.Raycast(cameraRay, out assassinationColliderHit, PlayerLookDistance, assassinationMask) && !MenuManager.instance.activeMenu && assassinationColliderHit.transform.parent.GetComponent<AiBehaviourScript>().isVulnerable)
         {
             UiManager.instance.InteractPrompt(true);
             if (Input.GetKeyDown("f"))
@@ -83,7 +83,7 @@ public class PlayerLookScript : MonoBehaviour
                 {
                     Debug.Log("kill");
                     // TODO: This needs to trigger an animation, and then set the animation to call a kill function or whatever when it ends
-                    enemyBeingKilledScript = assassinationColliderHit.transform.parent.GetComponent<TestEnemyScript>();
+                    enemyBeingKilledScript = assassinationColliderHit.transform.parent.GetComponent<AiBehaviourScript>();
                     enemyBeingKilledScript.StopEnemy();
                     Debug.Log("kill pos: " + enemyBeingKilledScript.killPosition.name);
                     PlayerScript.instance.StartAssassination(enemyBeingKilledScript.killPosition, enemyBeingKilledScript.gameObject);

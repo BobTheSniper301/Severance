@@ -48,10 +48,12 @@ public class WorkerScript : AiBehaviourScript
         }
         else if (playerSeen) Rat();
         else if (!moving && !ratting && !working) Work();
+        else if (!moving && !ratting && working && Vector3.Distance(desk, transform.position) < 1) sleepState = true;
     }
 
     public void Rat()
     {
+        Debug.Log("rat");
         ratting = true;
         working = false;
         agent.updateRotation = true;
@@ -80,16 +82,17 @@ public class WorkerScript : AiBehaviourScript
 
     public void Work()
     {
-        sleepState = true;
+        Debug.Log("work");
+
         working = true;
         agent.SetDestination(desk);
     }
 
     public override void HeardSound(Transform t, int alertLevel)
     {
-        base.HeardSound(t, alertLevel);
-
         sleepState = false;
         working = false;
+        
+        base.HeardSound(t, alertLevel);
     }
 }

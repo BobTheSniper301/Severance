@@ -10,6 +10,7 @@ public abstract class AiBehaviourScript : MonoBehaviour
 {
     protected NavMeshAgent agent;
     public GameObject player;
+    public GameObject killPosition;
 
     public GameObject patrol;
     public List<Transform> patrols = new List<Transform>();
@@ -110,13 +111,14 @@ public abstract class AiBehaviourScript : MonoBehaviour
         moving = true;
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);
     }
 
     public virtual void HeardSound(Transform t, int alertLevel)
     {
+        Debug.Log("heard sound");
         agent.updateRotation = true;
         lookTime = 0;
         agent.SetDestination(t.position);
@@ -125,6 +127,7 @@ public abstract class AiBehaviourScript : MonoBehaviour
 
     public virtual void StopEnemy()
     {
+        lookTime = 9;
         sleepState = true;
         agent.updatePosition = false;
         agent.updateRotation = false;

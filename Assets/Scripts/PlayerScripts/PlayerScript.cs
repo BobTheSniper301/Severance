@@ -14,7 +14,9 @@ public class PlayerScript : MonoBehaviour
     public GameObject[] assassinationWeapons;
     public GameObject activeAssassinationWeapon;
     [SerializeField] CameraBobSystem cameraBobSystem;
-    int activeAnimNum;
+
+    
+    
 
 
     public PlayerMovementScript playerMovementScript;
@@ -82,7 +84,6 @@ public class PlayerScript : MonoBehaviour
     public void AssassinationAnimation(int oneOrTwo)
     {
         animator.Play(oneOrTwo.ToString() + "HandAssassination");
-        activeAnimNum = oneOrTwo;   
     }
 
     public void FinishAssassination()

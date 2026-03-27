@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ItemSoundBubbleScript : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        collision.gameObject.GetComponent<AiBehaviourScript>().HeardSound(this.gameObject.transform, 1);
+        other.gameObject.transform.parent.GetComponent<AiBehaviourScript>().HeardSound(this.gameObject.transform, 1);   
     }
 }
